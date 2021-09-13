@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -15,4 +16,10 @@ console.log(process.env.REACT_APP_MEASUREMENT_ID);
 
 // Initialize Firebase
 export const firebase = initializeApp(firebaseConfig);
+export const firebaseAuth = getAuth();
 export const analytics = getAnalytics(firebase);
+// 로그인 여부 확인
+export const isLogin = firebaseAuth.currentUser ? true : false;
+
+// 구글 로그인
+export const googleLoginProvider = new GoogleAuthProvider();
