@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { isLogin as login } from "../firebase";
-import AppRouter from "./Router";
+import { firebaseAuth } from "firebase";
+import AppRouter from "components/Router";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(login);
-
+  const [isLogin, setIsLogin] = useState(firebaseAuth.currentUser);
   return (
     <div className="App">
-      <AppRouter isLogin={isLogin} />
-      <footer> footer </footer>
+      <AppRouter isLogin={isLogin} setIsLogin={setIsLogin} />
+      <footer>&copy; nwitter </footer>
     </div>
   );
 }

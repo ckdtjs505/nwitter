@@ -1,9 +1,9 @@
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import Auth from "../route/Auth";
-import Home from "../route/Home";
+import Auth from "route/Auth";
+import Home from "route/Home";
 
-const AppRouter = ({ isLogin }) => {
+const AppRouter = ({ isLogin, setIsLogin }) => {
   console.log(isLogin);
   return (
     <Router>
@@ -12,7 +12,7 @@ const AppRouter = ({ isLogin }) => {
           <Auth />
         </Route>
         <Route exact path="/">
-          {isLogin ? <Home /> : <Auth />}
+          {isLogin ? <Home /> : <Auth setIsLogin={setIsLogin} />}
         </Route>
       </Switch>
     </Router>
