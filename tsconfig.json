@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "module": "esnext",
     "noImplicitAny": true,
     "removeComments": true,
