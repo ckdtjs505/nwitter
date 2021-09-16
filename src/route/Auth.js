@@ -12,6 +12,7 @@ const Auth = ({ setIsLogin }) => {
         console.log(error);
       });
   };
+
   return (
     <>
       <div>auth</div>
