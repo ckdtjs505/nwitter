@@ -1,6 +1,7 @@
 module.exports = {
   env: {
     browser: true,
+    node: true, // node 버전도 사용
     es6: true
   },
   extends: ["eslint:recommended"],
