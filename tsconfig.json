@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    // "module": "esnext",
     "baseUrl": "src",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    // "outFile": "../../built/local/tsc.js",
     "sourceMap": true,
     "target": "es5",
     "lib": [
@@ -24,7 +22,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "module": "esnext"
   },
   "include": [
     "src/**/*"

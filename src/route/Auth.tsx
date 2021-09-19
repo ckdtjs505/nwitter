@@ -1,7 +1,7 @@
 import { signInWithPopup } from "@firebase/auth";
 import { firebaseAuth, googleLoginProvider } from "firebase";
 
-const Auth = ({ setIsLogin }) => {
+const Auth = ({ setIsLogin } : {setIsLogin : any}) => {
   const onClick = () => {
     signInWithPopup(firebaseAuth, googleLoginProvider)
       .then(result => {
