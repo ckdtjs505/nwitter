@@ -9,6 +9,7 @@ import { firebaseAuth, googleLoginProvider } from "firebase";
 const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [createNewAccount] = useState(false);
 
   // 소셜 로그인 버튼 클릭시
   const onClickSocialLogin = () => {
@@ -33,29 +34,39 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
   };
 
   // 로그인, 계정 생성 버튼
-  const hanldeSubmit = (e: React.SyntheticEvent) => {
+  const hanldeSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const target = e.target as typeof e.target & {
-      name: string;
-      email: { value: string };
-      password: { value: string };
-    };
-
-    // 계정 생성
-    if (target.name === "signIn") {
-      createUserWithEmailAndPassword(firebaseAuth, email, password).catch(err => {
-        console.log(err);
-      });
-    } else {
-      // 로그인
-      signInWithEmailAndPassword(firebaseAuth, email, password);
+    try {
+      let result;
+      if (createNewAccount) {
+        // 계정 생성
+        result = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+      } else {
+        // 로그인
+        result = await signInWithEmailAndPassword(firebaseAuth, email, password);
+        setIsLogin(true);
+      }
+      console.log(result);
+    } catch (error) {
+      // TODO - Error 코드 파일로 빼기
+      switch ((error as { code: string }).code) {
+        case "auth/user-not-found":
+          // TODO 로그인 페이지로 이동
+          alert("유저정보가 없습니다. 회원가입 후 이용해주세요");
+          break;
+        case "auth/wrong-password":
+          alert("비밀번호가 잘못되었습니다. 다시 시도해주세요");
+          break;
+        default:
+          console.log(error);
+          break;
+      }
     }
   };
 
   return (
     <>
-      <div>auth</div>
       <form onSubmit={hanldeSubmit}>
         <input
           value={email}
@@ -74,10 +85,7 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
           required
         ></input>
         <button name="login" type="submit">
-          Login
-        </button>
-        <button name="signIn" type="submit">
-          Sign in
+          {createNewAccount ? "create account" : "Login"}
         </button>
       </form>
 
