@@ -5,11 +5,13 @@ import {
   signInWithPopup
 } from "@firebase/auth";
 import { firebaseAuth, googleLoginProvider } from "firebase";
+import { loginException } from "components/Error";
 
 const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [createNewAccount] = useState(false);
+  const [error, setError] = useState("");
 
   // 소셜 로그인 버튼 클릭시
   const onClickSocialLogin = () => {
@@ -50,18 +52,7 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
       console.log(result);
     } catch (error) {
       // TODO - Error 코드 파일로 빼기
-      switch ((error as { code: string }).code) {
-        case "auth/user-not-found":
-          // TODO 로그인 페이지로 이동
-          alert("유저정보가 없습니다. 회원가입 후 이용해주세요");
-          break;
-        case "auth/wrong-password":
-          alert("비밀번호가 잘못되었습니다. 다시 시도해주세요");
-          break;
-        default:
-          console.log(error);
-          break;
-      }
+      setError(loginException.errorValue(error as { code: string; message: string }));
     }
   };
 
@@ -89,6 +80,7 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
         </button>
       </form>
 
+      <div>{error ? error : ""}</div>
       <button name="Goggle" onClick={onClickSocialLogin}>
         Google Login
       </button>
