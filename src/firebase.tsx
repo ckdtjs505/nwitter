@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
@@ -17,6 +18,8 @@ console.log(process.env.REACT_APP_MEASUREMENT_ID);
 // Initialize Firebase
 export const firebase = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth();
+export const firestore = getFirestore(firebase);
+export const fireCollection = collection(firestore, "nweets");
 export const analytics = getAnalytics(firebase);
 
 // 구글 로그인

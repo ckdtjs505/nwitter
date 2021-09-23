@@ -5,7 +5,7 @@ import Home from "route/Home";
 import Profile from "route/Profile";
 import Navigator from "components/Navigator";
 
-const AppRouter = ({ isLogin, setIsLogin }: any) => {
+const AppRouter = ({ isLogin, setIsLogin, user }: any) => {
   return (
     <Router>
       <Navigator isLogin={isLogin} />
@@ -17,7 +17,7 @@ const AppRouter = ({ isLogin, setIsLogin }: any) => {
           <Auth setIsLogin={true} />
         </Route>
         <Route exact path="/">
-          {isLogin ? <Home /> : <Auth setIsLogin={setIsLogin} />}
+          {isLogin ? <Home user={user} /> : <Auth setIsLogin={setIsLogin} />}
         </Route>
       </Switch>
     </Router>

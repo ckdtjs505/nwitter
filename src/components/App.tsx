@@ -6,17 +6,19 @@ import { onAuthStateChanged } from "@firebase/auth";
 function App() {
   const [init, setInit] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    onAuthStateChanged(firebaseAuth, () => {
+    onAuthStateChanged(firebaseAuth, (userInfo: any) => {
       setIsLogin(firebaseAuth.currentUser ? true : false);
+      setUser(userInfo);
       setInit(true);
     });
   }, []);
 
   return (
     <div className="App">
-      {init ? <AppRouter isLogin={isLogin} setIsLogin={setIsLogin} /> : "loading.."}
+      {init ? <AppRouter user={user} isLogin={isLogin} setIsLogin={setIsLogin} /> : "loading.."}
       <footer>&copy; nwitter </footer>
     </div>
   );
