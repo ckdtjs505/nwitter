@@ -61,7 +61,7 @@ const Home = ({ user }: any) => {
         <button type="submit">제출</button>
       </form>
       {nweets.map((ele: any) => (
-        <Nweets info={ele} isOwner={ele.userId === user.uid} />
+        <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
       ))}
     </div>
   );
