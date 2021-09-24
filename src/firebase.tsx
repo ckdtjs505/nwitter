@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 import { getFirestore, collection, doc } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
@@ -22,6 +23,7 @@ export const firestore = getFirestore(firebase);
 export const fireCollection = collection(firestore, "nweets");
 export const fireNweetsDoc = doc(fireCollection, "nweets");
 export const analytics = getAnalytics(firebase);
+export const fireStoage = getStorage(firebase);
 
 // 구글 로그인
 export const googleLoginProvider = new GoogleAuthProvider();

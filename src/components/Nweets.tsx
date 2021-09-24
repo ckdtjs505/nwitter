@@ -1,6 +1,7 @@
-import { firestore } from "firebase";
+import { fireStoage, firestore } from "firebase";
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import React, { useState } from "react";
+import { deleteObject, ref } from "@firebase/storage";
 
 const Nweets = ({ info, isOwner }: any) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -17,6 +18,7 @@ const Nweets = ({ info, isOwner }: any) => {
     const ok = confirm("정말로 삭제하시겠습니까?");
     if (ok) {
       deleteDoc(doc(firestore, `nweets/${info.id}`));
+      deleteObject(ref(fireStoage, info.fileUrl));
       console.log("delete");
     }
   };
@@ -38,7 +40,6 @@ const Nweets = ({ info, isOwner }: any) => {
 
   return (
     <div key={info.id}>
-      <h4> {info.text} </h4>
       {isEdit ? (
         <form onSubmit={handleSumbit}>
           <input
@@ -50,7 +51,10 @@ const Nweets = ({ info, isOwner }: any) => {
           <button type="submit">완료</button>
         </form>
       ) : (
-        ""
+        <>
+          <h4> {info.text} </h4>
+          {info.fileUrl && <img src={info.fileUrl} width="50px" height="50px" />}
+        </>
       )}
       {isOwner && (
         <>

@@ -1,11 +1,14 @@
 import { addDoc, onSnapshot } from "@firebase/firestore";
+import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import Nweets from "components/Nweets";
-import { fireCollection } from "firebase";
+import { v4 as uuidv4 } from "uuid";
+import { fireCollection, fireStoage } from "firebase";
 import React, { useEffect, useState } from "react";
 
 const Home = ({ user }: any) => {
   const [text, setText] = useState("");
   const [nweets, setNweets] = useState([]);
+  const [uploadFile, setUploadFile] = useState(null);
 
   useEffect(() => {
     // use Effect 안에서 async를 사용하지못함..
@@ -36,15 +39,42 @@ const Home = ({ user }: any) => {
 
     // 값이 비어있는 경우 예외처리
     if (text === "") {
+      alert("텍스르를 입력해주세욧");
       return;
     }
 
     setText("");
+    setUploadFile(null);
+
+    let fileUrl = "";
+    if (uploadFile) {
+      const fileRef = await ref(fireStoage, `${user.uid}/${uuidv4()}`);
+      await uploadString(fileRef, uploadFile, "data_url");
+      fileUrl = await getDownloadURL(fileRef);
+    }
+
     await addDoc(fireCollection, {
       text,
       createdAd: Date.now(),
-      userId: user.uid
+      userId: user.uid,
+      fileUrl
     });
+  };
+
+  const handleFileChange = (e: any) => {
+    const {
+      target: { files }
+    } = e;
+    const uploadFile = files[0];
+    const reader = new FileReader();
+    reader.onloadend = (e: any) => {
+      setUploadFile(e.target.result);
+    };
+    reader.readAsDataURL(uploadFile);
+  };
+
+  const handleDeleteImg = () => {
+    setUploadFile(null);
   };
 
   return (
@@ -57,7 +87,13 @@ const Home = ({ user }: any) => {
           placeholder="아무거나 입력해"
           maxLength={120}
         ></input>
-        {/* value Nweet */}
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+        {uploadFile && (
+          <div>
+            <img src={uploadFile} width="50px" height="50px" />
+            <button onClick={handleDeleteImg}> 이미지 취소</button>
+          </div>
+        )}
         <button type="submit">제출</button>
       </form>
       {nweets.map((ele: any) => (
