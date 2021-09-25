@@ -10,7 +10,7 @@ import { loginException } from "components/Error";
 const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [createNewAccount] = useState(false);
+  const [createNewAccount, setCreateNewAccount] = useState(false);
   const [error, setError] = useState("");
 
   // 소셜 로그인 버튼 클릭시
@@ -55,6 +55,10 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
     }
   };
 
+  const handleClickCreateNew = () => {
+    setCreateNewAccount(true);
+  };
+
   return (
     <>
       <form onSubmit={hanldeSubmit}>
@@ -79,6 +83,7 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
         </button>
       </form>
 
+      <button onClick={handleClickCreateNew}>{createNewAccount ? "로그인" : "회원가입"}</button>
       <div>{error ? error : ""}</div>
       <button name="Goggle" onClick={onClickSocialLogin}>
         Google Login

@@ -1,7 +1,7 @@
 import { updateProfile } from "@firebase/auth";
-import { getDocs, query, where } from "@firebase/firestore";
-import { fireCollection } from "firebase";
-import React, { useEffect, useState } from "react";
+// import { getDocs, query, where } from "@firebase/firestore";
+// import { fireCollection } from "firebase";
+import React, { useState } from "react";
 
 // type User = {
 //   email: string;
@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 //   photoURL: string;
 // };
 
-const Profile = ({ user }: any) => {
+const Profile = ({ user, updateUser }: any) => {
   // const [userInfo] = useState({
   //   email: user.email,
   //   displayName: user.displayName,
@@ -18,37 +18,39 @@ const Profile = ({ user }: any) => {
   //   photoURL: user.photoURL
   // });
 
-  const [displayName, setDisplayName] = useState(user.displayName || "");
+  const [newdisplayName, setNewDisplayName] = useState(user.displayName);
 
-  const getMyNweets = async () => {
-    const userInfo = await where("userId", "==", user.uid);
-    const _query = await query(fireCollection, userInfo);
-    const data = await getDocs(_query);
-    data.docs.map(doc => {
-      console.log(doc.data());
-    });
-  };
+  // const getMyNweets = async () => {
+  //   const userInfo = await where("userId", "==", user.uid);
+  //   const _query = await query(fireCollection, userInfo);
+  //   const data = await getDocs(_query);
+  //   data.docs.map(doc => {
+  //     console.log(doc.data());
+  //   });
+  // };
 
-  const handleNickSumbit = (e: React.SyntheticEvent) => {
+  const handleNickSumbit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    updateProfile(user, { displayName });
+    if (newdisplayName === user.displayName) return;
+    await updateProfile(user, { displayName: newdisplayName });
+    await updateUser(newdisplayName);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value }
     } = e;
-    setDisplayName(value);
+    setNewDisplayName(value);
   };
 
-  useEffect(() => {
-    getMyNweets();
-  }, []);
+  // useEffect(() => {
+  //   getMyNweets();
+  // }, []);
 
   return (
     <form onSubmit={handleNickSumbit}>
-      <input placeholder="닉네임을 입력" value={displayName} onChange={handleChange}></input>
+      <input placeholder="닉네임을 입력" value={newdisplayName} onChange={handleChange}></input>
       <button type={"submit"}>닉네임 변경</button>
     </form>
   );
