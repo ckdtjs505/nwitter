@@ -29,7 +29,6 @@ const Home = ({ user }: any) => {
     const {
       target: { value }
     } = e;
-    console.log(value);
     setText(value);
   };
 

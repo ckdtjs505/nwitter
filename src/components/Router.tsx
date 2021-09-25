@@ -8,10 +8,10 @@ import Navigator from "components/Navigator";
 const AppRouter = ({ isLogin, setIsLogin, user }: any) => {
   return (
     <Router>
-      <Navigator isLogin={isLogin} />
+      <Navigator isLogin={isLogin} user={user} />
       <Switch>
         <Route exact path="/profile">
-          <Profile></Profile>
+          <Profile user={user}></Profile>
         </Route>
         <Route exact path="/auth">
           <Auth setIsLogin={true} />

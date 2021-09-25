@@ -1,9 +1,12 @@
 import { Link, useHistory } from "react-router-dom";
 import { signOut } from "@firebase/auth";
 import { firebaseAuth } from "firebase";
-import Profile from "route/Profile";
 
-const Navigator = ({ isLogin }: { isLogin: boolean }) => {
+type NavProps = {
+  isLogin: boolean;
+  user: any;
+};
+const Navigator = ({ isLogin, user }: NavProps) => {
   const history = useHistory();
   const handleLogout = () => {
     signOut(firebaseAuth);
@@ -18,9 +21,7 @@ const Navigator = ({ isLogin }: { isLogin: boolean }) => {
       {isLogin ? (
         <>
           <li>
-            <Link to="/profile">
-              <Profile />
-            </Link>
+            <Link to="/profile"> {user.displayName}'의 Profile</Link>
           </li>
 
           <li>

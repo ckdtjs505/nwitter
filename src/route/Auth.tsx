@@ -16,8 +16,7 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
   // 소셜 로그인 버튼 클릭시
   const onClickSocialLogin = () => {
     signInWithPopup(firebaseAuth, googleLoginProvider)
-      .then(result => {
-        console.log(result);
+      .then(() => {
         setIsLogin(true);
       })
       .catch(error => {

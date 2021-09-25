@@ -19,7 +19,6 @@ const Nweets = ({ info, isOwner }: any) => {
     if (ok) {
       deleteDoc(doc(firestore, `nweets/${info.id}`));
       deleteObject(ref(fireStoage, info.fileUrl));
-      console.log("delete");
     }
   };
 
@@ -29,7 +28,6 @@ const Nweets = ({ info, isOwner }: any) => {
 
   const handleSumbit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(editText);
 
     handleToggle();
 
