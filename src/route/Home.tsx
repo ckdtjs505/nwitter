@@ -1,6 +1,6 @@
 import { onSnapshot } from "@firebase/firestore";
 import Nweets from "components/Nweets";
-import NweetsFrom from "components/NweetsFrom";
+import NweetsFrom from "components/NweetsForm";
 import { fireCollection } from "firebase";
 import React, { useEffect, useState } from "react";
 
