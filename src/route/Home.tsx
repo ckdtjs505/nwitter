@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import { onSnapshot } from "@firebase/firestore";
 import Nweets from "components/Nweets";
 import NweetsFrom from "components/NweetsForm";
 import { fireCollection } from "firebase";
-import React, { useEffect, useState } from "react";
 
 const Home = ({ user }: any) => {
   const [nweets, setNweets] = useState([]);
