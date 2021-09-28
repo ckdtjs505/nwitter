@@ -3,17 +3,18 @@ import { firebaseAuth } from "firebase";
 import AppRouter from "components/Router";
 import _ from "lodash";
 import { onAuthStateChanged } from "@firebase/auth";
-// setUser({
-//   email: userInfo.email,
-//   displayName: userInfo.displayName,
-//   uid: userInfo.uid,
-//   photoURL: userInfo.photoURL,
-//   updateProfile: (args: any) => userInfo.updateProfile(args)
-// });
+import styled from "styled-components";
+import "../reset.css";
+
 function App() {
   const [init, setInit] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState("");
+  const Main = styled.div`
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+  `;
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (userInfo: any) => {
@@ -34,12 +35,19 @@ function App() {
 
   return (
     <div className="App">
-      {init ? (
-        <AppRouter user={user} isLogin={isLogin} setIsLogin={setIsLogin} updateUser={updateUser} />
-      ) : (
-        "loading.."
-      )}
-      <footer>&copy; nwitter </footer>
+      <Main>
+        {init ? (
+          <AppRouter
+            user={user}
+            isLogin={isLogin}
+            setIsLogin={setIsLogin}
+            updateUser={updateUser}
+          />
+        ) : (
+          "loading.."
+        )}
+      </Main>
+      {/* <footer>&copy; nwitter </footer> */}
     </div>
   );
 }

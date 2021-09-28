@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import { signOut } from "@firebase/auth";
 // import { firebaseAuth } from "firebase";
 import styled from "styled-components";
@@ -9,18 +9,46 @@ type NavProps = {
 };
 
 const IconBox = styled.div`
+  display: flex;
   width: 25px;
   height: 25px;
+  margin: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 `;
 
 const NavItem = styled(Link)`
   display: flex;
+  height: 58.25px;
+  padding: 4px 0 4px 0;
+`;
+
+const Item = styled.div`
+  display: flex;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 2rem;
+
+  :hover {
+    background-color: #e7e7e8;
+  }
 `;
 
 const Header = styled.header`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 234px;
+`;
+
+const Text = styled.span`
+  padding-right: 1rem;
+  font-size: 20px;
+  /* font-weight: 700; */
+  text-decoration: none solid rgb(15, 20, 25);
+  white-space: nowrap;
+  word-spacing: 0;
 `;
 
 const Icon = ({ type }: any): any => {
@@ -68,40 +96,53 @@ const Navigator = ({ isLogin, user }: NavProps) => {
   //   signOut(firebaseAuth);
   //   history.push("/");
   // };
+  const location = useLocation();
+  console.log(location);
 
   return (
     <Header>
+      <div>
+        <NavItem to="/">
+          <Item>
+            <Icon type="home" />
+            <Text>Home </Text>
+          </Item>
+        </NavItem>
+        <NavItem to="/">
+          <Item>
+            <Icon type="Explore" />
+            <Text>Explore </Text>
+          </Item>
+        </NavItem>
+        <NavItem to="/">
+          <Item>
+            <Icon type="Notifications" />
+            <Text>Notifications </Text>
+          </Item>
+        </NavItem>
+        <NavItem to="/">
+          <Item>
+            <Icon type="Messages" />
+            <Text>Messages </Text>
+          </Item>
+        </NavItem>
+        <NavItem to="/profile">
+          <Item>
+            <Icon type="Profile" />
+            <Text>Profile </Text>
+          </Item>
+        </NavItem>
+        {isLogin ? <></> : ""}
+      </div>
       <NavItem to="/">
-        <Icon type="home" /> home
+        {/* <Link to="/profile"> {user.displayName}'의 Profile</Link> */}
+        {/* <button onClick={handleLogout}>Logout</button> */}
+        <img></img>
+        <div>
+          <div>{user.displayName}</div>
+          <div>@{user.displayName}</div>
+        </div>
       </NavItem>
-      <NavItem to="/">
-        <Icon type="Explore" /> Explore
-      </NavItem>
-      <NavItem to="/">
-        <Icon type="Notifications" /> Notifications
-      </NavItem>
-      <NavItem to="/">
-        <Icon type="Messages" /> Messages
-      </NavItem>
-
-      {isLogin ? (
-        <>
-          <NavItem to="/profile">
-            <Icon type="Profile" /> Profile
-          </NavItem>
-          {/* <Link to="/profile"> {user.displayName}'의 Profile</Link> */}
-          {/* <button onClick={handleLogout}>Logout</button> */}
-          <NavItem to="/">
-            <img></img>
-            <div>
-              <div>{user.displayName}</div>
-              <div>@{user.displayName}</div>
-            </div>
-          </NavItem>
-        </>
-      ) : (
-        ""
-      )}
     </Header>
   );
 };
