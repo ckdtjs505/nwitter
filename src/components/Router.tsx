@@ -12,7 +12,8 @@ const Content = styled.div`
 const AppRouter = ({ isLogin, setIsLogin, user, updateUser }: any) => {
   return (
     <Router>
-      <Navigator isLogin={isLogin} user={user} />
+      {isLogin ? <Navigator isLogin={isLogin} user={user} /> : ""}
+
       <Content>
         <Switch>
           <Route exact path="/profile">
