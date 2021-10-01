@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const Main = styled.div`
   display: flex;
-  justify-content: space-around;
+  height: 100vh;
 `;
 
 const Home = ({ user }: any) => {
@@ -27,14 +27,40 @@ const Home = ({ user }: any) => {
     });
   }, []);
 
+  const TitleBox = styled.div`
+    height: 53px;
+    border-bottom: rgb(239, 243, 244) 1px solid;
+  `;
+
+  const Title = styled.div`
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-decoration: none solid rgb(15, 20, 25);
+    white-space: nowrap;
+    margin: auto;
+
+    padding: 16px 16px 0 16px;
+  `;
+
+  const Content = styled.div`
+    border-right: rgb(239, 243, 244) 1px solid;
+    width: 598px;
+  `;
+
   return (
     <Main>
-      <div>
-        <NweetsFrom user={user} />
-        {nweets.map((ele: any) => (
-          <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
-        ))}
-      </div>
+      <Content>
+        <TitleBox>
+          <Title>Home </Title>
+        </TitleBox>
+        <div>
+          <NweetsFrom user={user} />
+          {nweets.map((ele: any) => (
+            <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
+          ))}
+        </div>
+      </Content>
       <aside>
         <button> Search Nwitter </button>
         <div>

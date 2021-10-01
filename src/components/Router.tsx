@@ -7,7 +7,7 @@ import Navigator from "components/Navigator";
 import styled from "styled-components";
 
 const Content = styled.div`
-  width: 990px;
+  /* width: 990px; */
 `;
 const AppRouter = ({ isLogin, setIsLogin, user, updateUser }: any) => {
   return (
