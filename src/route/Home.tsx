@@ -56,29 +56,13 @@ const Home = ({ user }: any) => {
         </TitleBox>
         <div>
           <NweetsFrom user={user} />
-          {nweets.map((ele: any) => (
-            <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
-          ))}
+          {nweets
+            .sort((a: any, b: any) => b.createdAd - a.createdAd)
+            .map((ele: any) => (
+              <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
+            ))}
         </div>
       </Content>
-      <aside>
-        <button> Search Nwitter </button>
-        <div>
-          <div>You might like</div>
-          <div>
-            <span>방탄 소년단</span>
-            <button>Follow</button>
-          </div>
-          <div>
-            <span>방탄 소년단</span>
-            <button>Follow</button>
-          </div>
-          <div>
-            <span>방탄 소년단</span>
-            <button>Follow</button>
-          </div>
-        </div>
-      </aside>
     </Main>
   );
 };

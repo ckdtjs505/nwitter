@@ -154,9 +154,9 @@ const Navigator = ({ isLogin, user }: NavProps) => {
       <div>
         <NavList type="Icon"> </NavList>
         <NavList type="Home"> </NavList>
-        <NavList type="Explore"> </NavList>
+        {/* <NavList type="Explore"> </NavList>
         <NavList type="Notifications"> </NavList>
-        <NavList type="Messages"> </NavList>
+        <NavList type="Messages"> </NavList> */}
         <NavList type="Profile"> </NavList>
         {isLogin ? <></> : ""}
       </div>

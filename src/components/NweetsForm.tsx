@@ -100,6 +100,8 @@ const NweetsFrom = ({ user }: any) => {
       text,
       createdAd: Date.now(),
       userId: user.uid,
+      userPhotoURL: user.photoURL,
+      userNickName: user.displayName,
       fileUrl
     });
   };

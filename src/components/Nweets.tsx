@@ -2,8 +2,43 @@ import { fireStoage, firestore } from "firebase";
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import React, { useState } from "react";
 import { deleteObject, ref } from "@firebase/storage";
+import styled from "styled-components";
 
+const NweetData = styled.form`
+  display: flex;
+  padding: 10px;
+  min-height: 116px;
+  border-bottom: rgb(239, 243, 244) 1px solid;
+  justify-content: space-between;
+`;
+
+const Img = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+`;
+
+const LeftBox = styled.div`
+  display: flex;
+`;
+
+const NweetImg = styled.img`
+  width: 400px;
+  width: 400px;
+  border: solid 1px #d6dfe3;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+`;
+
+const Title = styled.span`
+  font-weight: 700;
+  font-size: 1.2rem;
+`;
 const Nweets = ({ info, isOwner }: any) => {
+  console.log(info);
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(info.text);
 
@@ -49,16 +84,25 @@ const Nweets = ({ info, isOwner }: any) => {
           <button type="submit">완료</button>
         </form>
       ) : (
-        <>
-          <h4> {info.text} </h4>
-          {info.fileUrl && <img src={info.fileUrl} width="50px" height="50px" />}
-        </>
-      )}
-      {isOwner && (
-        <>
-          <button onClick={handleDelete}>삭제</button>
-          <button onClick={handleToggle}>{isEdit ? "수정 종료" : "수정"}</button>
-        </>
+        <NweetData>
+          <LeftBox>
+            <Img src={info.userPhotoURL} width="50px" height="50px" />
+            <div>
+              <h3 style={{ marginBottom: "0.5rem" }}>
+                <Title>{info.userNickName} </Title>
+                {` · ${new Date(info.createdAd).getMonth()}/${new Date(info.createdAd).getDate()}`}
+              </h3>
+              <h4> {info.text} </h4>
+              {info.fileUrl && <NweetImg src={info.fileUrl} />}
+            </div>
+          </LeftBox>
+          {isOwner && (
+            <div>
+              <button onClick={handleDelete}>삭제</button>
+              <button onClick={handleToggle}>{isEdit ? "수정 종료" : "수정"}</button>
+            </div>
+          )}
+        </NweetData>
       )}
     </div>
   );
