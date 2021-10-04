@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/https//ckdtjs505.github.io/nwitter/static/css/main.b1a50ffd.chunk.css",
-    "main.js": "/https//ckdtjs505.github.io/nwitter/static/js/main.5c307201.chunk.js",
-    "main.js.map": "/https//ckdtjs505.github.io/nwitter/static/js/main.5c307201.chunk.js.map",
-    "runtime-main.js": "/https//ckdtjs505.github.io/nwitter/static/js/runtime-main.373c2f88.js",
-    "runtime-main.js.map": "/https//ckdtjs505.github.io/nwitter/static/js/runtime-main.373c2f88.js.map",
-    "static/js/2.ae0d879e.chunk.js": "/https//ckdtjs505.github.io/nwitter/static/js/2.ae0d879e.chunk.js",
-    "static/js/2.ae0d879e.chunk.js.map": "/https//ckdtjs505.github.io/nwitter/static/js/2.ae0d879e.chunk.js.map",
-    "index.html": "/https//ckdtjs505.github.io/nwitter/index.html",
-    "static/css/main.b1a50ffd.chunk.css.map": "/https//ckdtjs505.github.io/nwitter/static/css/main.b1a50ffd.chunk.css.map",
-    "static/js/2.ae0d879e.chunk.js.LICENSE.txt": "/https//ckdtjs505.github.io/nwitter/static/js/2.ae0d879e.chunk.js.LICENSE.txt"
+    "main.css": "/nwitter/static/css/main.b1a50ffd.chunk.css",
+    "main.js": "/nwitter/static/js/main.5c307201.chunk.js",
+    "main.js.map": "/nwitter/static/js/main.5c307201.chunk.js.map",
+    "runtime-main.js": "/nwitter/static/js/runtime-main.e281786e.js",
+    "runtime-main.js.map": "/nwitter/static/js/runtime-main.e281786e.js.map",
+    "static/js/2.e58f9afe.chunk.js": "/nwitter/static/js/2.e58f9afe.chunk.js",
+    "static/js/2.e58f9afe.chunk.js.map": "/nwitter/static/js/2.e58f9afe.chunk.js.map",
+    "index.html": "/nwitter/index.html",
+    "static/css/main.b1a50ffd.chunk.css.map": "/nwitter/static/css/main.b1a50ffd.chunk.css.map",
+    "static/js/2.e58f9afe.chunk.js.LICENSE.txt": "/nwitter/static/js/2.e58f9afe.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.373c2f88.js",
-    "static/js/2.ae0d879e.chunk.js",
+    "static/js/runtime-main.e281786e.js",
+    "static/js/2.e58f9afe.chunk.js",
     "static/css/main.b1a50ffd.chunk.css",
     "static/js/main.5c307201.chunk.js"
   ]
