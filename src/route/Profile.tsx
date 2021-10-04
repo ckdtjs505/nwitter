@@ -2,6 +2,7 @@ import { updateProfile } from "@firebase/auth";
 // import { getDocs, query, where } from "@firebase/firestore";
 // import { fireCollection } from "firebase";
 import React, { useState } from "react";
+import { Content, Main, Title, TitleBox } from "./Home";
 
 // type User = {
 //   email: string;
@@ -49,10 +50,23 @@ const Profile = ({ user, updateUser }: any) => {
   // }, []);
 
   return (
-    <form onSubmit={handleNickSumbit}>
-      <input placeholder="닉네임을 입력" value={newdisplayName} onChange={handleChange}></input>
-      <button type={"submit"}>닉네임 변경</button>
-    </form>
+    <Main>
+      <Content>
+        <TitleBox>
+          <Title> Profile </Title>
+        </TitleBox>
+        <div>
+          <form onSubmit={handleNickSumbit}>
+            <input
+              placeholder="닉네임을 입력"
+              value={newdisplayName}
+              onChange={handleChange}
+            ></input>
+            <button type={"submit"}>닉네임 변경</button>
+          </form>
+        </div>
+      </Content>
+    </Main>
   );
 };
 

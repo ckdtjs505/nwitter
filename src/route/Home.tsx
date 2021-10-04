@@ -5,9 +5,43 @@ import NweetsFrom from "components/NweetsForm";
 import { fireCollection } from "firebase";
 import styled from "styled-components";
 
-const Main = styled.div`
+export const Main = styled.div`
   display: flex;
   height: 100vh;
+  // 스크롤바 생성
+  overflow-y: scroll;
+  // 스크롤바 미노출
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const TitleBox = styled.div`
+  height: 53px;
+  border-bottom: rgb(239, 243, 244) 1px solid;
+`;
+
+export const Title = styled.div`
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-decoration: none solid rgb(15, 20, 25);
+  white-space: nowrap;
+  margin: auto;
+
+  padding: 16px 16px 0 16px;
+`;
+
+export const Content = styled.div`
+  border-right: rgb(239, 243, 244) 1px solid;
+  width: 100%;
+
+  @media (max-width: 860px) {
+    width: 93%;
+  }
 `;
 
 const Home = ({ user }: any) => {
@@ -26,27 +60,6 @@ const Home = ({ user }: any) => {
       setNweets(nweetsInfo);
     });
   }, []);
-
-  const TitleBox = styled.div`
-    height: 53px;
-    border-bottom: rgb(239, 243, 244) 1px solid;
-  `;
-
-  const Title = styled.div`
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 24px;
-    text-decoration: none solid rgb(15, 20, 25);
-    white-space: nowrap;
-    margin: auto;
-
-    padding: 16px 16px 0 16px;
-  `;
-
-  const Content = styled.div`
-    border-right: rgb(239, 243, 244) 1px solid;
-    width: 598px;
-  `;
 
   return (
     <Main>

@@ -31,6 +31,10 @@ const NweetImg = styled.img`
   border-radius: 1rem;
   padding: 0.5rem;
   margin: 0.5rem;
+
+  @media (max-width: 860px) {
+    width: 70%;
+  }
 `;
 
 const Title = styled.span`
@@ -86,7 +90,7 @@ const Nweets = ({ info, isOwner }: any) => {
       ) : (
         <NweetData>
           <LeftBox>
-            <Img src={info.userPhotoURL} width="50px" height="50px" />
+            <Img src={info.userPhotoURL} />
             <div>
               <h3 style={{ marginBottom: "0.5rem" }}>
                 <Title>{info.userNickName} </Title>

@@ -41,7 +41,12 @@ const Header = styled.header`
   flex-direction: column;
   justify-content: space-between;
   width: 234px;
+  height: 100vh;
   border-right: rgb(239, 243, 244) 1px solid;
+
+  @media (max-width: 860px) {
+    width: 65px;
+  }
 `;
 
 const Text = styled.span`
@@ -51,6 +56,10 @@ const Text = styled.span`
   text-decoration: none solid rgb(15, 20, 25);
   white-space: nowrap;
   word-spacing: 0;
+
+  @media (max-width: 860px) {
+    display: none;
+  }
 `;
 
 const Img = styled.img`
@@ -76,6 +85,10 @@ const UserSetting = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 860px) {
+    display: none;
+  }
 `;
 
 const LogoutButton = styled.button`
