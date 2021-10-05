@@ -2,6 +2,35 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "@fir
 import { loginException } from "components/Error";
 import { firebaseAuth } from "firebase";
 import React, { useState } from "react";
+import styled from "styled-components";
+
+const Input = styled.input`
+  width: 80%;
+  margin-bottom: 1rem;
+  height: 3rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  prefix: 1rem;
+`;
+
+const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  font-weight: 700;
+`;
+
+export const AuthButton = styled.button`
+  width: 80%;
+  height: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: white;
+  border-radius: 1rem;
+  list-style: none;
+`;
 
 const AuthForm = ({ setIsLogin }: { setIsLogin: any }) => {
   const [email, setEmail] = useState("");
@@ -46,28 +75,33 @@ const AuthForm = ({ setIsLogin }: { setIsLogin: any }) => {
 
   return (
     <>
-      <form onSubmit={hanldeSubmit}>
-        <input
+      <LoginForm onSubmit={hanldeSubmit}>
+        <label> id </label>
+        <Input
           value={email}
           name="elEmail"
           type="email"
           onChange={handleInput}
           placeholder={"아이디를 입력하세요"}
           required
-        ></input>
-        <input
+        ></Input>
+
+        <label> 비밀번호 </label>
+        <Input
           value={password}
           name="elPassword"
           type="password"
           onChange={handleInput}
           placeholder={"비밀번호를 입력하세요"}
           required
-        ></input>
-        <button name="login" type="submit">
+        ></Input>
+        <AuthButton name="login" type="submit">
           {createNewAccount ? "create account" : "Login"}
-        </button>
-      </form>
-      <button onClick={handleClickCreateNew}>{createNewAccount ? "로그인" : "회원가입"}</button>
+        </AuthButton>
+      </LoginForm>
+      <AuthButton onClick={handleClickCreateNew}>
+        {createNewAccount ? "로그인" : "회원가입"}
+      </AuthButton>
       <div>{error ? error : ""}</div>
     </>
   );

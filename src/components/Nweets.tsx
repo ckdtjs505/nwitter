@@ -3,6 +3,7 @@ import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import React, { useState } from "react";
 import { deleteObject, ref } from "@firebase/storage";
 import styled from "styled-components";
+import defaultImg from "../img/default.png";
 
 const NweetData = styled.form`
   display: flex;
@@ -90,7 +91,7 @@ const Nweets = ({ info, isOwner }: any) => {
       ) : (
         <NweetData>
           <LeftBox>
-            <Img src={info.userPhotoURL} />
+            <Img src={info.userPhotoURL === null ? defaultImg : info.userPhotoURL} alt="" />
             <div>
               <h3 style={{ marginBottom: "0.5rem" }}>
                 <Title>{info.userNickName} </Title>

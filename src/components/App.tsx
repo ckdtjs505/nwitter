@@ -5,16 +5,15 @@ import _ from "lodash";
 import { onAuthStateChanged } from "@firebase/auth";
 import styled from "styled-components";
 import "../reset.css";
-
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+`;
 function App() {
   const [init, setInit] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState("");
-  const Main = styled.div`
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-  `;
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (userInfo: any) => {

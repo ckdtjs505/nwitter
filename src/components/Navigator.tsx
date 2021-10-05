@@ -2,6 +2,7 @@ import { signOut } from "@firebase/auth";
 import { firebaseAuth } from "firebase";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import defaultImg from "../img/default.png";
 
 type NavProps = {
   isLogin: boolean;
@@ -175,7 +176,7 @@ const Navigator = ({ isLogin, user }: NavProps) => {
       </div>
       <UserBox>
         {/* <Link to="/profile"> {user.displayName}'의 Profile</Link> */}
-        <Img src={user.photoURL}></Img>
+        <Img src={user.photoURL === null ? defaultImg : user.photoURL}></Img>
         <UserSetting>
           <div>
             <Strong>{user.displayName}</Strong>

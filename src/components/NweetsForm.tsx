@@ -1,6 +1,7 @@
 import { fireCollection, fireStoage } from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
+import defaultImg from "../img/default.png";
 
 import React, { useState } from "react";
 import { addDoc } from "@firebase/firestore";
@@ -123,7 +124,7 @@ const NweetsFrom = ({ user }: any) => {
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <Img src={user.photoURL} />
+      <Img src={user.photoURL === null ? defaultImg : user.photoURL} />
 
       <Content>
         <Input
