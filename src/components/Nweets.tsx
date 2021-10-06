@@ -43,7 +43,6 @@ const Title = styled.span`
   font-size: 1.2rem;
 `;
 const Nweets = ({ info, isOwner }: any) => {
-  console.log(info);
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(info.text);
 
@@ -58,7 +57,7 @@ const Nweets = ({ info, isOwner }: any) => {
     const ok = confirm("정말로 삭제하시겠습니까?");
     if (ok) {
       deleteDoc(doc(firestore, `nweets/${info.id}`));
-      deleteObject(ref(fireStoage, info.fileUrl));
+      if (info.fileUrl) deleteObject(ref(fireStoage, info.fileUrl));
     }
   };
 

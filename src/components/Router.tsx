@@ -17,7 +17,11 @@ const AppRouter = ({ isLogin, setIsLogin, user, updateUser }: any) => {
       <Content>
         <Switch>
           <Route exact path="/profile">
-            <Profile user={user} updateUser={updateUser}></Profile>
+            {isLogin ? (
+              <Profile user={user} updateUser={updateUser}></Profile>
+            ) : (
+              <Auth setIsLogin={setIsLogin} />
+            )}
           </Route>
           <Route exact path="/auth">
             <Auth setIsLogin={true} />
