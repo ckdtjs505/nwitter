@@ -36,6 +36,7 @@ const Input = styled.input`
   border: none;
   margin-top: 1rem;
   font-size: 20px;
+  width: 100%;
 `;
 
 const FormFooter = styled.div`

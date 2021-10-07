@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { deleteObject, ref } from "@firebase/storage";
 import styled from "styled-components";
 import defaultImg from "../img/default.png";
+import { MdDelete, MdOutlineEdit } from "react-icons/md";
 
-const NweetData = styled.form`
+const NweetData = styled.div`
   display: flex;
   padding: 10px;
   min-height: 116px;
@@ -26,23 +27,29 @@ const LeftBox = styled.div`
 `;
 
 const NweetImg = styled.img`
-  /* width: 400px; */
   max-width: 100%;
   height: auto;
   border: solid 1px #d6dfe3;
   border-radius: 1rem;
   padding: 0.5rem;
   margin: 0.5rem;
-
-  @media (max-width: 860px) {
-    /* width: 70%; */
-  }
 `;
 
 const Title = styled.span`
   font-weight: 700;
   font-size: 1.2rem;
 `;
+
+const Button = styled.button`
+  background: none;
+  border: none;
+`;
+
+const ButtonBox = styled.div`
+  position: relative;
+  width: 15px;
+`;
+
 const Nweets = ({ info, isOwner }: any) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(info.text);
@@ -78,37 +85,41 @@ const Nweets = ({ info, isOwner }: any) => {
 
   return (
     <div key={info.id}>
-      {isEdit ? (
-        <form onSubmit={handleSumbit}>
-          <input
-            type="text"
-            placeholder={"수정할 데이터를 입력해주세요"}
-            onChange={handleChange}
-            value={editText}
-          ></input>
-          <button type="submit">완료</button>
-        </form>
-      ) : (
-        <NweetData>
-          <LeftBox>
-            <Img src={info.userPhotoURL === null ? defaultImg : info.userPhotoURL} alt="" />
-            <div>
-              <h3 style={{ marginBottom: "0.5rem" }}>
-                <Title>{info.userNickName} </Title>
-                {` · ${new Date(info.createdAd).getMonth()}/${new Date(info.createdAd).getDate()}`}
-              </h3>
+      <NweetData>
+        <LeftBox>
+          <Img src={info.userPhotoURL === null ? defaultImg : info.userPhotoURL} alt="" />
+          <div>
+            <h3 style={{ marginBottom: "0.5rem" }}>
+              <Title>{info.userNickName} </Title>
+              {` · ${new Date(info.createdAd).getMonth()}/${new Date(info.createdAd).getDate()}`}
+            </h3>
+            {isEdit ? (
+              <form onSubmit={handleSumbit}>
+                <input
+                  type="text"
+                  placeholder={"수정할 데이터를 입력해주세요"}
+                  onChange={handleChange}
+                  value={editText}
+                ></input>
+                <button type="submit">완료</button>
+              </form>
+            ) : (
               <h4> {info.text} </h4>
-              {info.fileUrl && <NweetImg src={info.fileUrl} />}
-            </div>
-          </LeftBox>
-          {isOwner && (
-            <div>
-              <button onClick={handleDelete}>삭제</button>
-              <button onClick={handleToggle}>{isEdit ? "수정 종료" : "수정"}</button>
-            </div>
-          )}
-        </NweetData>
-      )}
+            )}
+            {info.fileUrl && <NweetImg src={info.fileUrl} />}
+          </div>
+        </LeftBox>
+        {isOwner && (
+          <ButtonBox>
+            <Button onClick={handleDelete}>
+              <MdDelete />
+            </Button>
+            <Button onClick={handleToggle}>
+              <MdOutlineEdit />
+            </Button>
+          </ButtonBox>
+        )}
+      </NweetData>
     </div>
   );
 };
