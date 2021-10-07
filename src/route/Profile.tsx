@@ -1,8 +1,10 @@
-import { updateProfile } from "@firebase/auth";
+import { signOut, updateProfile } from "@firebase/auth";
 import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
 import Nweets from "components/Nweets";
-import { fireCollection, firestore } from "firebase";
+import { firebaseAuth, fireCollection, firestore } from "firebase";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import styled from "styled-components";
 import { Main, Title, TitleBox } from "./Home";
 
 // type User = {
@@ -12,9 +14,22 @@ import { Main, Title, TitleBox } from "./Home";
 //   photoURL: string;
 // };
 
+const ProfileDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: rgb(239, 243, 244) 1px solid;
+`;
+
 const Profile = ({ user, updateUser }: any) => {
   const [userNweets, setuserNweets] = useState([]);
   const [newdisplayName, setNewDisplayName] = useState(user.displayName);
+
+  const history = useHistory();
+  const handleLogout = () => {
+    signOut(firebaseAuth);
+    history.push("/");
+  };
 
   useEffect(() => {
     // 자신이 올린 Nweets 모아보기
@@ -62,12 +77,18 @@ const Profile = ({ user, updateUser }: any) => {
       <TitleBox>
         <Title> Profile </Title>
       </TitleBox>
-      <div>
+      <ProfileDiv>
         <form onSubmit={handleNickSumbit}>
           <input placeholder="닉네임을 입력" value={newdisplayName} onChange={handleChange}></input>
           <button type={"submit"}>Edit NickName</button>
         </form>
+        <button onClick={handleLogout}> Logout </button>
+      </ProfileDiv>
 
+      <TitleBox>
+        <Title> My Nweets </Title>
+      </TitleBox>
+      <div>
         {userNweets
           .sort((a: any, b: any) => b.createdAd - a.createdAd)
           .map((ele: any, idx) => {

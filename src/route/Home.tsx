@@ -40,6 +40,7 @@ export const Title = styled.div`
   white-space: nowrap;
   margin: auto;
   padding: 16px 16px 0 16px;
+  padding-bottom: 16px;
 `;
 
 const Home = ({ user }: any) => {

@@ -9,7 +9,7 @@ import { MdDelete, MdOutlineEdit } from "react-icons/md";
 const NweetData = styled.div`
   display: flex;
   padding: 10px;
-  min-height: 116px;
+  min-height: 60px;
   border-bottom: rgb(239, 243, 244) 1px solid;
   justify-content: space-between;
 `;
@@ -48,6 +48,11 @@ const Button = styled.button`
 const ButtonBox = styled.div`
   position: relative;
   width: 15px;
+`;
+
+const InfoText = styled.p`
+  width: 100%;
+  word-break: break-all;
 `;
 
 const Nweets = ({ info, isOwner }: any) => {
@@ -91,7 +96,9 @@ const Nweets = ({ info, isOwner }: any) => {
           <div>
             <h3 style={{ marginBottom: "0.5rem" }}>
               <Title>{info.userNickName} </Title>
-              {` · ${new Date(info.createdAd).getMonth()}/${new Date(info.createdAd).getDate()}`}
+              {` · ${new Date(info.createdAd).getMonth() + 1}/${new Date(
+                info.createdAd
+              ).getDate()}`}
             </h3>
             {isEdit ? (
               <form onSubmit={handleSumbit}>
@@ -104,7 +111,7 @@ const Nweets = ({ info, isOwner }: any) => {
                 <button type="submit">완료</button>
               </form>
             ) : (
-              <h4> {info.text} </h4>
+              <InfoText> {info.text} </InfoText>
             )}
             {info.fileUrl && <NweetImg src={info.fileUrl} />}
           </div>
