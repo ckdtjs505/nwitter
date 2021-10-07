@@ -40,7 +40,6 @@ const AuthForm = ({ setIsLogin }: { setIsLogin: any }) => {
 
   // 아이디 비밀번호 입력시
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     if (e.target.name === "elEmail") {
       setEmail(e.target.value);
     } else if (e.target.name === "elPassword") {

@@ -7,7 +7,10 @@ import styled from "styled-components";
 
 export const Main = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100vh;
+  width: 620px;
+  border-right: rgb(239, 243, 244) 1px solid;
   // 스크롤바 생성
   overflow-y: scroll;
   // 스크롤바 미노출
@@ -17,10 +20,15 @@ export const Main = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  @media (max-width: 860px) {
+    width: 95%;
+  }
 `;
 
 export const TitleBox = styled.div`
   height: 53px;
+  width: 100%;
   border-bottom: rgb(239, 243, 244) 1px solid;
 `;
 
@@ -31,17 +39,7 @@ export const Title = styled.div`
   text-decoration: none solid rgb(15, 20, 25);
   white-space: nowrap;
   margin: auto;
-
   padding: 16px 16px 0 16px;
-`;
-
-export const Content = styled.div`
-  border-right: rgb(239, 243, 244) 1px solid;
-  width: 100%;
-
-  @media (max-width: 860px) {
-    width: 93%;
-  }
 `;
 
 const Home = ({ user }: any) => {
@@ -63,19 +61,17 @@ const Home = ({ user }: any) => {
 
   return (
     <Main>
-      <Content>
-        <TitleBox>
-          <Title>Home </Title>
-        </TitleBox>
-        <div>
-          <NweetsFrom user={user} />
-          {nweets
-            .sort((a: any, b: any) => b.createdAd - a.createdAd)
-            .map((ele: any) => (
-              <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
-            ))}
-        </div>
-      </Content>
+      <TitleBox>
+        <Title> Home </Title>
+      </TitleBox>
+      <div>
+        <NweetsFrom user={user} />
+        {nweets
+          .sort((a: any, b: any) => b.createdAd - a.createdAd)
+          .map((ele: any) => (
+            <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
+          ))}
+      </div>
     </Main>
   );
 };

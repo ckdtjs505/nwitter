@@ -162,7 +162,6 @@ const Navigator = ({ isLogin, user }: NavProps) => {
   // const location = useLocation();
   // console.log(location.pathname);
 
-  console.log(user);
   return (
     <Header>
       <div>

@@ -3,7 +3,7 @@ import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/fir
 import Nweets from "components/Nweets";
 import { fireCollection, firestore } from "firebase";
 import React, { useEffect, useState } from "react";
-import { Content, Main, Title, TitleBox } from "./Home";
+import { Main, Title, TitleBox } from "./Home";
 
 // type User = {
 //   email: string;
@@ -59,28 +59,21 @@ const Profile = ({ user, updateUser }: any) => {
 
   return (
     <Main>
-      <Content>
-        <TitleBox>
-          <Title> Profile </Title>
-        </TitleBox>
-        <div>
-          <form onSubmit={handleNickSumbit}>
-            <input
-              placeholder="닉네임을 입력"
-              value={newdisplayName}
-              onChange={handleChange}
-            ></input>
-            <button type={"submit"}>Edit NickName</button>
-          </form>
+      <TitleBox>
+        <Title> Profile </Title>
+      </TitleBox>
+      <div>
+        <form onSubmit={handleNickSumbit}>
+          <input placeholder="닉네임을 입력" value={newdisplayName} onChange={handleChange}></input>
+          <button type={"submit"}>Edit NickName</button>
+        </form>
 
-          {userNweets
-            .sort((a: any, b: any) => b.createdAd - a.createdAd)
-            .map((ele: any, idx) => {
-              console.log(ele);
-              return <Nweets key={idx} info={ele} isOwner={ele.userId === user.uid} />;
-            })}
-        </div>
-      </Content>
+        {userNweets
+          .sort((a: any, b: any) => b.createdAd - a.createdAd)
+          .map((ele: any, idx) => {
+            return <Nweets key={idx} info={ele} isOwner={ele.userId === user.uid} />;
+          })}
+      </div>
     </Main>
   );
 };

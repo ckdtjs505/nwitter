@@ -26,15 +26,16 @@ const LeftBox = styled.div`
 `;
 
 const NweetImg = styled.img`
-  width: 400px;
-  width: 400px;
+  /* width: 400px; */
+  max-width: 100%;
+  height: auto;
   border: solid 1px #d6dfe3;
   border-radius: 1rem;
   padding: 0.5rem;
   margin: 0.5rem;
 
   @media (max-width: 860px) {
-    width: 70%;
+    /* width: 70%; */
   }
 `;
 

@@ -5,6 +5,7 @@ import _ from "lodash";
 import { onAuthStateChanged } from "@firebase/auth";
 import styled from "styled-components";
 import "../reset.css";
+
 const Main = styled.div`
   display: flex;
   justify-content: center;
@@ -28,7 +29,6 @@ function App() {
   const updateUser = (newdisplayName: string) => {
     const currentUser: any = firebaseAuth.currentUser;
     currentUser.displayName = newdisplayName;
-    console.log("update", currentUser);
     setUser(_.cloneDeep(currentUser));
   };
 
