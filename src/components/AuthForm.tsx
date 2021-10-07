@@ -16,7 +16,9 @@ const Input = styled.input`
   width: 80%;
   margin-bottom: 1rem;
   height: 2rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  border-bottom: rgb(239, 243, 244) 1px solid;
   padding-left: 0.8rem;
   font-size: 1.2rem;
   prefix: 1rem;
@@ -29,8 +31,8 @@ export const AuthButton = styled.button`
   font-size: 1rem;
   font-weight: 700;
   background-color: white;
-  border-radius: 1rem;
-  list-style: none;
+  border-radius: 0.5rem;
+  border: solid 1px black;
 `;
 
 const AuthForm = ({ setIsLogin }: { setIsLogin: any }) => {
@@ -76,27 +78,25 @@ const AuthForm = ({ setIsLogin }: { setIsLogin: any }) => {
   return (
     <>
       <LoginForm onSubmit={hanldeSubmit}>
-        <label> id </label>
         <Input
           value={email}
           name="elEmail"
           type="email"
           onChange={handleInput}
-          placeholder={"아이디를 입력하세요"}
+          placeholder={"아이디"}
           required
         ></Input>
 
-        <label> 비밀번호 </label>
         <Input
           value={password}
           name="elPassword"
           type="password"
           onChange={handleInput}
-          placeholder={"비밀번호를 입력하세요"}
+          placeholder={"비밀번호"}
           required
         ></Input>
         <AuthButton name="login" type="submit">
-          {createNewAccount ? "create account" : "Login"}
+          {createNewAccount ? "create account" : "로그인"}
         </AuthButton>
       </LoginForm>
       <AuthButton onClick={handleClickCreateNew}>
