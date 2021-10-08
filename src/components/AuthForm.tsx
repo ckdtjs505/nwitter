@@ -73,6 +73,8 @@ const AuthForm = ({ setIsLogin }: { setIsLogin: any }) => {
 
   const handleClickCreateNew = () => {
     setCreateNewAccount(true);
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -96,12 +98,10 @@ const AuthForm = ({ setIsLogin }: { setIsLogin: any }) => {
           required
         ></Input>
         <AuthButton name="login" type="submit">
-          {createNewAccount ? "create account" : "로그인"}
+          {createNewAccount ? "아이디 생성하기" : "로그인"}
         </AuthButton>
       </LoginForm>
-      <AuthButton onClick={handleClickCreateNew}>
-        {createNewAccount ? "로그인" : "회원가입"}
-      </AuthButton>
+      {!createNewAccount ? <AuthButton onClick={handleClickCreateNew}>회원가입</AuthButton> : ""}
       <div>{error ? error : ""}</div>
     </>
   );

@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { firebaseAuth } from "firebase";
 import AppRouter from "components/Router";
-import _ from "lodash";
 import { onAuthStateChanged } from "@firebase/auth";
 import styled from "styled-components";
 import "../reset.css";
+import _ from "lodash";
+import Loading from "./Loading";
 
 const Main = styled.div`
   display: flex;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
 `;
+
 function App() {
   const [init, setInit] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (userInfo: any) => {
@@ -43,7 +45,7 @@ function App() {
             updateUser={updateUser}
           />
         ) : (
-          "loading.."
+          <Loading />
         )}
       </Main>
       {/* <footer>&copy; nwitter </footer> */}

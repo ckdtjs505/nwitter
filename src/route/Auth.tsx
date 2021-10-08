@@ -2,7 +2,7 @@ import { signInWithPopup } from "@firebase/auth";
 import AuthForm, { AuthButton } from "components/AuthForm";
 import { firebaseAuth, googleLoginProvider } from "firebase";
 import styled from "styled-components";
-import { FcCloseUpMode } from "react-icons/fc";
+import { FcCloseUpMode, FcGoogle } from "react-icons/fc";
 
 const AuthFormDiv = styled(AuthForm)`
   margin-top: 1rem;
@@ -34,8 +34,6 @@ const AuthBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* width: 50rem; */
-  /* padding-left: 2rem; */
   margin: auto;
   margin-left: 2rem;
 `;
@@ -43,7 +41,6 @@ const AuthBox = styled.div`
 const Subtitle = styled.h2`
   font-size: 31px;
   font-weight: 700;
-  /* line-height: 36px; */
   text-decoration: none solid rgb(15, 20, 25);
   margin-bottom: 2rem;
 `;
@@ -51,7 +48,6 @@ const Subtitle = styled.h2`
 const Title = styled.h1`
   font-size: 50px;
   font-weight: 700;
-  /* line-height: 84px; */
   text-decoration: none solid rgb(15, 20, 25);
   margin-bottom: 2rem;
 `;
@@ -77,7 +73,7 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
         <Subtitle> Join Nwitter today. </Subtitle>
         <AuthFormDiv setIsLogin={setIsLogin}></AuthFormDiv>
         <AuthButton name="Goggle" onClick={onClickSocialLogin}>
-          Google Login
+          <FcGoogle /> Google 계정으로 로그인하기
         </AuthButton>
       </AuthBox>
     </AuthLayout>

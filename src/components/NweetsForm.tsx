@@ -6,6 +6,7 @@ import defaultImg from "../img/default.png";
 import React, { useState } from "react";
 import { addDoc } from "@firebase/firestore";
 import styled from "styled-components";
+import { DefaultButton, NweetImg } from "./Nweets";
 
 const Form = styled.form`
   display: flex;
@@ -32,7 +33,7 @@ const FileInput = styled.input`
   border: 0;
 `;
 
-const Input = styled.input`
+const NweetsInput = styled.input`
   border: none;
   margin-top: 1rem;
   font-size: 20px;
@@ -128,17 +129,17 @@ const NweetsFrom = ({ user }: any) => {
       <Img src={user.photoURL === null ? defaultImg : user.photoURL} />
 
       <Content>
-        <Input
+        <NweetsInput
           value={text}
           onChange={handleChange}
           type="text"
           placeholder="What's happening?"
           maxLength={120}
-        ></Input>
+        ></NweetsInput>
         {uploadFile && (
           <div>
-            <img src={uploadFile} width="50px" height="50px" />
-            <button onClick={handleDeleteImg}> 이미지 취소</button>
+            <NweetImg src={uploadFile} />
+            <DefaultButton onClick={handleDeleteImg}> 이미지 삭제 </DefaultButton>
           </div>
         )}
         <FormFooter>

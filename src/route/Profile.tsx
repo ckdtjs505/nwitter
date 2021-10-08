@@ -1,18 +1,11 @@
-import { signOut, updateProfile } from "@firebase/auth";
-import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
-import Nweets from "components/Nweets";
-import { firebaseAuth, fireCollection, firestore } from "firebase";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import styled from "styled-components";
+import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
+import { firebaseAuth, fireCollection, firestore } from "firebase";
+import { signOut, updateProfile } from "@firebase/auth";
 import { Main, Title, TitleBox } from "./Home";
-
-// type User = {
-//   email: string;
-//   displayName: string;
-//   uid: string;
-//   photoURL: string;
-// };
+import Nweets from "components/Nweets";
+import styled from "styled-components";
 
 const ProfileDiv = styled.div`
   display: flex;
@@ -21,6 +14,11 @@ const ProfileDiv = styled.div`
   border-bottom: rgb(239, 243, 244) 1px solid;
 `;
 
+const Msg = styled.div`
+  margin-top: 5rem;
+  font-size: 1.2rem;
+  text-align: center;
+`;
 const Profile = ({ user, updateUser }: any) => {
   const [userNweets, setuserNweets] = useState([]);
   const [newdisplayName, setNewDisplayName] = useState(user.displayName);
@@ -89,11 +87,17 @@ const Profile = ({ user, updateUser }: any) => {
         <Title> My Nweets </Title>
       </TitleBox>
       <div>
-        {userNweets
-          .sort((a: any, b: any) => b.createdAd - a.createdAd)
-          .map((ele: any, idx) => {
-            return <Nweets key={idx} info={ele} isOwner={ele.userId === user.uid} />;
-          })}
+        {userNweets.length === 0 ? (
+          <Msg>
+            작성된 Nweets이 없습니다 <br />
+          </Msg>
+        ) : (
+          userNweets
+            .sort((a: any, b: any) => b.createdAd - a.createdAd)
+            .map((ele: any, idx) => {
+              return <Nweets key={idx} info={ele} isOwner={ele.userId === user.uid} />;
+            })
+        )}
       </div>
     </Main>
   );

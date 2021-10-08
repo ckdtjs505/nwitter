@@ -26,7 +26,7 @@ const LeftBox = styled.div`
   display: flex;
 `;
 
-const NweetImg = styled.img`
+export const NweetImg = styled.img`
   max-width: 100%;
   height: auto;
   border: solid 1px #d6dfe3;
@@ -55,6 +55,16 @@ const InfoText = styled.p`
   word-break: break-all;
 `;
 
+const InputFix = styled.input`
+  width: 80%;
+`;
+
+export const DefaultButton = styled.button`
+  border: none;
+  color: black;
+  /* width: 2.5rem; */
+  height: 1.5rem;
+`;
 const Nweets = ({ info, isOwner }: any) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(info.text);
@@ -102,13 +112,13 @@ const Nweets = ({ info, isOwner }: any) => {
             </h3>
             {isEdit ? (
               <form onSubmit={handleSumbit}>
-                <input
+                <InputFix
                   type="text"
                   placeholder={"수정할 데이터를 입력해주세요"}
                   onChange={handleChange}
                   value={editText}
-                ></input>
-                <button type="submit">완료</button>
+                />
+                <DefaultButton type="submit">완료</DefaultButton>
               </form>
             ) : (
               <InfoText> {info.text} </InfoText>
