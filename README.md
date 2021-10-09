@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+<br />
+<p align="center">
+  <a href="https://ckdtjs505.github.io/nwitter/">
+    <img src="./src/img/logo.png" alt="Logo" width="40" height="30">
+  </a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <h3 align="center">nweets</h3>
 
-## Available Scripts
+  <p align="center">
+    Cloning twitter with React, Typescript, firebase
+    <br />
+    <a href="https://ckdtjs505.github.io/nwitter/"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://ckdtjs505.github.io/nwitter/">View Demo</a>
+    ·
+    <a href="https://ckdtjs505.github.io/nwitter/issues">Report Bug</a>
+    ·
+    <a href="https://ckdtjs505.github.io/nwitter/issues">Request Feature</a>
+  </p>
+</p>
 
-In the project directory, you can run:
+## Table of Contents
 
-### `yarn start`
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+  - [Pages](#pages)
+- [Getting Started](#getting-started)
+- [Contect](#contect)
+- [Acknowledgements](#acknowledgements)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+ 1. img, nweets, login **with firebase**
+ 2. google login**with firebase**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## About The Project
+![Alt text](/src/img/4_.png)
+![Alt text](/src/img/1_.png)
+![Alt text](/src/img/2_.png)
 
-### `yarn test`
+### Built With
+- firebase 
+- babel(ES6), typescript
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Pages
+- Home
+- Profile
 
-### `yarn build`
+## Getting Started
+1. clone the repo
+```
+git clone https://ckdtjs505.github.io/nwitter/
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install NPM packages
+```
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. start dev server
+```
+npm run start
+```
+## Contect 
+ email : ckdtjs505@afreecatv.com
+ Project Link: https://ckdtjs505.github.io/nwitter/
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Acknowledgements
+- [Nomadcoder](https://academy.nomadcoders.co/) 
