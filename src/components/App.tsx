@@ -19,6 +19,7 @@ function App() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    // 유저 정보 변경시 - 닉네임 변경
     onAuthStateChanged(firebaseAuth, (userInfo: any) => {
       setIsLogin(firebaseAuth.currentUser ? true : false);
       if (userInfo) {
@@ -28,6 +29,7 @@ function App() {
     });
   }, []);
 
+  // 유저 정보 변경
   const updateUser = (newdisplayName: string) => {
     const currentUser: any = firebaseAuth.currentUser;
     currentUser.displayName = newdisplayName;
