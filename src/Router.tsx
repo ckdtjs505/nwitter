@@ -3,15 +3,16 @@ import Auth from "route/Auth";
 import Home from "route/Home";
 import Profile from "route/Profile";
 import Navigator from "components/Navigator";
+import { User } from "@firebase/auth";
 
 type AppRouterProps = {
   isLogin: boolean;
   setIsLogin: object;
-  user: object;
+  user: User | null;
   updateUser: Function;
 };
 
-const AppRouter = ({ isLogin, setIsLogin, user, updateUser }: AppRouterProps) => {
+const Routes = ({ isLogin, setIsLogin, user, updateUser }: AppRouterProps) => {
   return (
     <Router>
       {isLogin ? (
@@ -23,7 +24,7 @@ const AppRouter = ({ isLogin, setIsLogin, user, updateUser }: AppRouterProps) =>
               <Profile user={user} updateUser={updateUser}></Profile>
             </Route>
             <Route exact path="/auth">
-              <Auth setIsLogin={true} />
+              <Auth setIsLogin={setIsLogin} />
             </Route>
             <Route exact path="/">
               <Home user={user} />
@@ -40,4 +41,4 @@ const AppRouter = ({ isLogin, setIsLogin, user, updateUser }: AppRouterProps) =>
   );
 };
 
-export default AppRouter;
+export default Routes;

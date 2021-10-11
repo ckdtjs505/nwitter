@@ -25,3 +25,4 @@ export const fireStoage = getStorage(firebase);
 
 // 구글 로그인
 export const googleLoginProvider = new GoogleAuthProvider();
+
