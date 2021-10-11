@@ -3,7 +3,7 @@ import { firebaseAuth } from "firebase";
 import { MdAccountCircle, MdHome } from "react-icons/md";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import defaultImg from "../img/default.png";
+import defaultImg from "../assets/default.png";
 
 type NavProps = {
   isLogin: boolean;

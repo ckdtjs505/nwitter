@@ -1,7 +1,7 @@
 import { fireCollection, fireStoage } from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
-import defaultImg from "../img/default.png";
+import defaultImg from "../assets/default.png";
 import { FiImage } from "react-icons/fi";
 
 import React, { useState } from "react";
@@ -121,7 +121,7 @@ const NweetsFrom = ({ user }: any) => {
   const handleDeleteImg = () => {
     setUploadFile(null);
   };
-  
+
   return (
     <Form onSubmit={handleSubmit}>
       <Img src={user.photoURL === null ? defaultImg : user.photoURL} />

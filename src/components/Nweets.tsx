@@ -3,7 +3,8 @@ import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import React, { useState } from "react";
 import { deleteObject, ref } from "@firebase/storage";
 import styled from "styled-components";
-import defaultImg from "../img/default.png";
+import defaultImg from "../assets/default.png";
+
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
 
 const NweetData = styled.div`

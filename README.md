@@ -36,9 +36,9 @@
  2. google login**with firebase**
 
 ## About The Project
-![Alt text](/src/img/4_.png)
-![Alt text](/src/img/1_.png)
-![Alt text](/src/img/2_.png)
+![Alt text](/public/img/4_.png)
+![Alt text](/public/img/1_.png)
+![Alt text](/public/img/2_.png)
 
 ### Built With
 - firebase 
