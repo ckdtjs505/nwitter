@@ -1,7 +1,7 @@
 import { fireCollection, fireStoage } from "firebase";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
-import defaultImg from "../assets/default.png";
+import defaultImg from "assets/default.png";
 import { FiImage } from "react-icons/fi";
 
 import React, { useState } from "react";
@@ -65,7 +65,7 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const NweetsFrom = ({ user }: any) => {
+const NweetsFrom = (user: any) => {
   const [text, setText] = useState("");
   const [uploadFile, setUploadFile] = useState(null);
   // 텍스트 입력시
@@ -82,7 +82,7 @@ const NweetsFrom = ({ user }: any) => {
 
     // 값이 비어있는 경우 예외처리
     if (text === "") {
-      alert("텍스르를 입력해주세욧");
+      alert("텍스트를 입력해주세욧");
       return;
     }
 
@@ -91,7 +91,7 @@ const NweetsFrom = ({ user }: any) => {
 
     let fileUrl = "";
     if (uploadFile) {
-      const fileRef = await ref(fireStoage, `${user.uid}/${uuidv4()}`);
+      const fileRef = await ref(fireStoage, `${user?.uid}/${uuidv4()}`);
       await uploadString(fileRef, uploadFile, "data_url");
       fileUrl = await getDownloadURL(fileRef);
     }
@@ -99,9 +99,9 @@ const NweetsFrom = ({ user }: any) => {
     await addDoc(fireCollection, {
       text,
       createdAd: Date.now(),
-      userId: user.uid,
-      userPhotoURL: user.photoURL,
-      userNickName: user.displayName,
+      userId: user?.uid,
+      userPhotoURL: user?.photoURL,
+      userNickName: user?.displayName,
       fileUrl
     });
   };
@@ -124,7 +124,7 @@ const NweetsFrom = ({ user }: any) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Img src={user.photoURL === null ? defaultImg : user.photoURL} />
+      <Img src={user?.photoURL === undefined ? defaultImg : user?.photoURL} />
 
       <Content>
         <NweetsInput

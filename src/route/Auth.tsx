@@ -3,6 +3,8 @@ import AuthForm, { AuthButton } from "components/AuthForm";
 import { firebaseAuth, googleLoginProvider } from "firebase";
 import styled from "styled-components";
 import { FcCloseUpMode, FcGoogle } from "react-icons/fc";
+import { useContext } from "react";
+import { AuthContext } from "context";
 
 const AuthFormDiv = styled(AuthForm)`
   margin-top: 1rem;
@@ -52,12 +54,13 @@ const Title = styled.h1`
   margin-bottom: 2rem;
 `;
 
-const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
+const Auth = () => {
+  const userInfo = useContext(AuthContext);
   // 소셜 로그인 버튼 클릭시
   const onClickSocialLogin = () => {
     signInWithPopup(firebaseAuth, googleLoginProvider)
       .then(() => {
-        setIsLogin(true);
+        userInfo?.setIsLogin(true);
       })
       .catch(error => {
         console.log(error);
@@ -71,7 +74,7 @@ const Auth = ({ setIsLogin }: { setIsLogin: any }) => {
         <FcCloseUpMode size="2.5rem" />
         <Title> Happening now </Title>
         <Subtitle> Join Nwitter today. </Subtitle>
-        <AuthFormDiv setIsLogin={setIsLogin}></AuthFormDiv>
+        <AuthFormDiv setIsLogin={userInfo?.setIsLogin}></AuthFormDiv>
         <AuthButton name="Goggle" onClick={onClickSocialLogin}>
           <FcGoogle /> Google 계정으로 로그인하기
         </AuthButton>

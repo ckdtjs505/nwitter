@@ -1,14 +1,11 @@
 import { signOut } from "@firebase/auth";
+import { AuthContext } from "context";
 import { firebaseAuth } from "firebase";
+import { useContext } from "react";
 import { MdAccountCircle, MdHome } from "react-icons/md";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import defaultImg from "../assets/default.png";
-
-type NavProps = {
-  isLogin: boolean;
-  user: any;
-};
 
 const IconBox = styled.div`
   display: flex;
@@ -138,14 +135,14 @@ const NavList = ({ type }: any) => {
   );
 };
 
-const Navigator = ({ isLogin, user }: NavProps) => {
+const Navigator = () => {
+  const userInfo = useContext(AuthContext);
   const history = useHistory();
   const handleLogout = () => {
-    signOut(firebaseAuth);
-    history.push("/");
+    signOut(firebaseAuth).then(() => {
+      history.push("/");
+    });
   };
-  // const location = useLocation();
-  // console.log(location.pathname);
 
   return (
     <Header>
@@ -154,17 +151,20 @@ const Navigator = ({ isLogin, user }: NavProps) => {
         <NavList type="Home"> </NavList>
 
         <NavList type="Profile"> </NavList>
-        {isLogin ? <></> : ""}
+        {userInfo?.isLogin ? <></> : ""}
       </div>
       <UserBox>
-        {/* <Link to="/profile"> {user.displayName}'의 Profile</Link> */}
-        <Img src={user.photoURL === null ? defaultImg : user.photoURL}></Img>
+        <Link to="/profile">
+          <Img
+            src={userInfo?.user?.photoURL === null ? defaultImg : userInfo?.user?.photoURL}
+          ></Img>
+        </Link>
         <UserSetting>
           <div>
-            <Strong>{user.displayName}</Strong>
+            <Strong>{userInfo?.user?.displayName}</Strong>
             <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
           </div>
-          <div style={{ color: "#677682" }}>{user.email}</div>
+          <div style={{ color: "#677682" }}>{userInfo?.user?.email}</div>
         </UserSetting>
       </UserBox>
     </Header>

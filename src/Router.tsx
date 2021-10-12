@@ -3,39 +3,31 @@ import Auth from "route/Auth";
 import Home from "route/Home";
 import Profile from "route/Profile";
 import Navigator from "components/Navigator";
-import { User } from "@firebase/auth";
+import { useContext } from "react";
+import { AuthContext } from "context";
 
-type AppRouterProps = {
-  isLogin: boolean;
-  setIsLogin: object;
-  user: User | null;
-  updateUser: Function;
-};
-
-const Routes = ({ isLogin, setIsLogin, user, updateUser }: AppRouterProps) => {
+const Routes = () => {
+  const userInfo = useContext(AuthContext);
   return (
     <Router>
-      {isLogin ? (
+      {userInfo?.init && userInfo?.isLogin ? (
         <>
-          <Navigator isLogin={isLogin} user={user} />
+          <Navigator />
 
           <Switch>
             <Route exact path="/profile">
-              <Profile user={user} updateUser={updateUser}></Profile>
-            </Route>
-            <Route exact path="/auth">
-              <Auth setIsLogin={setIsLogin} />
+              <Profile user={userInfo?.user} updateUser={userInfo?.updateUser}></Profile>
             </Route>
             <Route exact path="/">
-              <Home user={user} />
+              <Home />
             </Route>
             <Route path="*">
-              <Home user={user} />
+              <Home />
             </Route>
           </Switch>
         </>
       ) : (
-        <Auth setIsLogin={setIsLogin} />
+        <Auth />
       )}
     </Router>
   );

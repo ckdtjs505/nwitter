@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { onSnapshot } from "@firebase/firestore";
 import Nweets from "components/Nweets";
 import NweetsFrom from "components/NweetsForm";
 import { fireCollection } from "firebase";
 import styled from "styled-components";
+import { AuthContext } from "context";
 
 export const Main = styled.div`
   display: flex;
@@ -43,7 +44,8 @@ export const Title = styled.div`
   padding-bottom: 16px;
 `;
 
-const Home = ({ user }: any) => {
+const Home = () => {
+  const userInfo = useContext(AuthContext);
   const [nweets, setNweets] = useState([]);
 
   useEffect(() => {
@@ -66,11 +68,11 @@ const Home = ({ user }: any) => {
         <Title> Home </Title>
       </TitleBox>
       <div>
-        <NweetsFrom user={user} />
+        <NweetsFrom user={userInfo?.user} />
         {nweets
           .sort((a: any, b: any) => b.createdAd - a.createdAd)
           .map((ele: any) => (
-            <Nweets key={ele.id} info={ele} isOwner={ele.userId === user.uid} />
+            <Nweets key={ele.id} info={ele} isOwner={ele.userId === userInfo?.user?.uid} />
           ))}
       </div>
     </Main>

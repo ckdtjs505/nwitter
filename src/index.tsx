@@ -8,7 +8,7 @@ import { AuthProvider } from "provider/AuthProvider";
 import { AuthContext } from "context";
 
 // TODO:메인 스타일을 여기서 해주는게 맞는가?
-const Main = styled.div`
+const Root = styled.div`
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -18,21 +18,10 @@ const App = () => {
   const userInfo = useContext(AuthContext);
 
   return (
-    <div className="App">
-      <Main>
-        {userInfo?.init ? (
-          <Routes
-            user={userInfo?.user}
-            isLogin={userInfo?.isLogin}
-            setIsLogin={userInfo?.setIsLogin}
-            updateUser={userInfo?.updateUser}
-          />
-        ) : (
-          <Loading />
-        )}
-      </Main>
+    <Root className="App">
+      {userInfo?.init ? <Routes /> : <Loading />}
       {/* <footer>&copy; nwitter </footer> */}
-    </div>
+    </Root>
   );
 };
 
