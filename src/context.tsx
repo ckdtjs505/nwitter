@@ -7,6 +7,7 @@ type Auth = {
   setUser: Function;
   isLogin: boolean;
   setIsLogin: Function;
+  updateUser: Function;
 } | null;
 
 export const AuthContext = React.createContext<Auth | null>(null);
