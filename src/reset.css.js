@@ -1,8 +1,11 @@
+import { createGlobalStyle } from "styled-components";
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
 
+const GlobalStyle = createGlobalStyle`
 html,
 body,
 div,
@@ -142,3 +145,12 @@ a:active {
   /* color: #fff; */
   /* background-color: #f59000; */
 }
+
+.App {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+`;
+
+export default GlobalStyle;
