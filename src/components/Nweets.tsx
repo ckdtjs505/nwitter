@@ -4,8 +4,19 @@ import React, { useState } from "react";
 import { deleteObject, ref } from "@firebase/storage";
 import styled from "styled-components";
 import defaultImg from "../assets/default.png";
-
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
+
+interface Props {
+  info: {
+    text: string;
+    id: string;
+    fileUrl?: string;
+    userPhotoURL: string;
+    userNickName: string;
+    createdAd: string;
+  };
+  isOwner: boolean;
+}
 
 const NweetData = styled.div`
   display: flex;
@@ -66,7 +77,8 @@ export const DefaultButton = styled.button`
   /* width: 2.5rem; */
   height: 1.5rem;
 `;
-const Nweets = ({ info, isOwner }: any) => {
+
+const Nweets: React.FC<Props> = ({ info, isOwner }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(info.text);
 

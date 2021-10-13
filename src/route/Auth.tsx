@@ -3,7 +3,7 @@ import AuthForm, { AuthButton } from "components/AuthForm";
 import { firebaseAuth, googleLoginProvider } from "firebase";
 import styled from "styled-components";
 import { FcCloseUpMode, FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "context";
 
 const AuthFormDiv = styled(AuthForm)`
@@ -54,7 +54,7 @@ const Title = styled.h1`
   margin-bottom: 2rem;
 `;
 
-const Auth = () => {
+const Auth: React.FC = () => {
   const userInfo = useContext(AuthContext);
   // 소셜 로그인 버튼 클릭시
   const onClickSocialLogin = () => {

@@ -1,3 +1,4 @@
+import React from "react";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
 
@@ -6,7 +7,7 @@ const Layout = styled.div`
   justify-content: center;
 `;
 
-const Loading = () => {
+const Loading: React.FC = () => {
   return (
     <Layout>
       <Loader type="Rings" color="#000000" height={80} width={80} />

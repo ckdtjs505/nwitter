@@ -1,7 +1,12 @@
+import React from "react";
 import { MdAccountCircle, MdHome } from "react-icons/md";
 import { IoLogoTwitter } from "react-icons/io";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+interface Props {
+  type: string;
+}
 
 const NavItem = styled(Link)`
   display: flex;
@@ -42,7 +47,7 @@ const IconBox = styled.div`
   padding-right: 1rem;
 `;
 
-const Icon = ({ type }: any) => {
+const Icon: React.FC<Props> = ({ type }) => {
   const IconSvg = (): any => {
     switch (type) {
       case "Icon":
@@ -63,7 +68,7 @@ const Icon = ({ type }: any) => {
   );
 };
 
-const NavList = ({ type }: any) => {
+const NavList: React.FC<Props> = ({ type }) => {
   return (
     <NavItem to={`/${type.toLowerCase()}`}>
       <Item defaultValue={location.pathname}>

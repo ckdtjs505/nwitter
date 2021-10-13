@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
@@ -6,6 +6,7 @@ import { signOut, updateProfile } from "@firebase/auth";
 import { Main, Title, TitleBox } from "./Home";
 import Nweets from "components/Nweets";
 import styled from "styled-components";
+import { AuthContext } from "context";
 
 const ProfileDiv = styled.div`
   display: flex;
@@ -19,9 +20,11 @@ const Msg = styled.div`
   font-size: 1.2rem;
   text-align: center;
 `;
-const Profile = ({ user, updateUser }: any) => {
+
+const Profile: React.FC = () => {
+  const userInfo = useContext(AuthContext);
   const [userNweets, setuserNweets] = useState([]);
-  const [newdisplayName, setNewDisplayName] = useState(user.displayName);
+  const [newdisplayName, setNewDisplayName] = useState(userInfo?.user?.displayName);
 
   const history = useHistory();
   const handleLogout = () => {
@@ -33,7 +36,7 @@ const Profile = ({ user, updateUser }: any) => {
     // 자신이 올린 Nweets 모아보기
     onSnapshot(fireCollection, snapShot => {
       const nweets: any = snapShot.docs
-        .filter((ele: any) => ele.data().userId === user.uid)
+        .filter((ele: any) => ele.data().userId === userInfo?.user?.uid)
         .map((ele: any) => {
           return {
             id: ele.id,
@@ -48,13 +51,15 @@ const Profile = ({ user, updateUser }: any) => {
   const handleNickSumbit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    if (newdisplayName === user.displayName) return;
-    await updateProfile(user, { displayName: newdisplayName });
-    await updateUser(newdisplayName);
+    if (newdisplayName === userInfo?.user?.displayName) return;
+    if (userInfo?.user) {
+      await updateProfile(userInfo?.user, { displayName: newdisplayName });
+      await userInfo?.updateUser(newdisplayName);
+    }
 
     // 닉네임이 업데이트 되면 리스트 데이터의 닉네임도 다 같이 변경되어야함
-    const userInfo = await where("userId", "==", user.uid);
-    const _query = await query(fireCollection, userInfo);
+    const userData = await where("userId", "==", userInfo?.user?.uid);
+    const _query = await query(fireCollection, userData);
     const querySnapshot = await getDocs(_query);
     querySnapshot.forEach(document => {
       updateDoc(doc(firestore, `nweets/${document.id}`), {
@@ -77,7 +82,11 @@ const Profile = ({ user, updateUser }: any) => {
       </TitleBox>
       <ProfileDiv>
         <form onSubmit={handleNickSumbit}>
-          <input placeholder="닉네임을 입력" value={newdisplayName} onChange={handleChange}></input>
+          <input
+            placeholder="닉네임을 입력"
+            value={newdisplayName ? newdisplayName : ""}
+            onChange={handleChange}
+          ></input>
           <button type={"submit"}>Edit NickName</button>
         </form>
         <button onClick={handleLogout}> Logout </button>
@@ -95,7 +104,7 @@ const Profile = ({ user, updateUser }: any) => {
           userNweets
             .sort((a: any, b: any) => b.createdAd - a.createdAd)
             .map((ele: any, idx) => {
-              return <Nweets key={idx} info={ele} isOwner={ele.userId === user.uid} />;
+              return <Nweets key={idx} info={ele} isOwner={ele.userId === userInfo?.user?.uid} />;
             })
         )}
       </div>

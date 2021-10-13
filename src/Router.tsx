@@ -16,7 +16,7 @@ const Routes = () => {
 
           <Switch>
             <Route exact path="/profile">
-              <Profile user={userInfo?.user} updateUser={userInfo?.updateUser}></Profile>
+              <Profile></Profile>
             </Route>
             <Route exact path="/">
               <Home />

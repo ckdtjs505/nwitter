@@ -3,11 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadString } from "@firebase/storage";
 import defaultImg from "assets/default.png";
 import { FiImage } from "react-icons/fi";
-
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { addDoc } from "@firebase/firestore";
 import styled from "styled-components";
 import { DefaultButton, NweetImg } from "./Nweets";
+import { AuthContext } from "context";
 
 const Form = styled.form`
   display: flex;
@@ -65,9 +65,10 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const NweetsFrom = (user: any) => {
+const NweetsFrom: React.FC = () => {
+  const userInfo = useContext(AuthContext);
   const [text, setText] = useState("");
-  const [uploadFile, setUploadFile] = useState(null);
+  const [uploadFile, setUploadFile] = useState<string | undefined | null>(null);
   // 텍스트 입력시
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -91,7 +92,7 @@ const NweetsFrom = (user: any) => {
 
     let fileUrl = "";
     if (uploadFile) {
-      const fileRef = await ref(fireStoage, `${user?.uid}/${uuidv4()}`);
+      const fileRef = await ref(fireStoage, `${userInfo?.user?.uid}/${uuidv4()}`);
       await uploadString(fileRef, uploadFile, "data_url");
       fileUrl = await getDownloadURL(fileRef);
     }
@@ -99,23 +100,23 @@ const NweetsFrom = (user: any) => {
     await addDoc(fireCollection, {
       text,
       createdAd: Date.now(),
-      userId: user?.uid,
-      userPhotoURL: user?.photoURL,
-      userNickName: user?.displayName,
+      userId: userInfo?.user?.uid,
+      userPhotoURL: userInfo?.user?.photoURL,
+      userNickName: userInfo?.user?.displayName,
       fileUrl
     });
   };
 
-  const handleFileChange = (e: any) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { files }
     } = e;
-    const uploadFile = files[0];
+    const uploadFile = files?.[0];
     const reader = new FileReader();
-    reader.onloadend = (e: any) => {
-      setUploadFile(e.target.result);
+    reader.onloadend = (e: ProgressEvent<FileReader>) => {
+      setUploadFile(String(e.target?.result));
     };
-    reader.readAsDataURL(uploadFile);
+    if (uploadFile) reader.readAsDataURL(uploadFile);
   };
 
   const handleDeleteImg = () => {
@@ -124,7 +125,7 @@ const NweetsFrom = (user: any) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Img src={user?.photoURL === undefined ? defaultImg : user?.photoURL} />
+      <Img src={userInfo?.user?.photoURL == undefined ? defaultImg : userInfo?.user?.photoURL} />
 
       <Content>
         <NweetsInput

@@ -68,7 +68,7 @@ const Home = () => {
         <Title> Home </Title>
       </TitleBox>
       <div>
-        <NweetsFrom user={userInfo?.user} />
+        <NweetsFrom />
         {nweets
           .sort((a: any, b: any) => b.createdAd - a.createdAd)
           .map((ele: any) => (

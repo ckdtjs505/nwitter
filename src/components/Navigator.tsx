@@ -70,9 +70,7 @@ const Navigator = () => {
       <div>
         <NavList type="Icon"> </NavList>
         <NavList type="Home"> </NavList>
-
         <NavList type="Profile"> </NavList>
-        {userInfo?.isLogin ? <></> : ""}
       </div>
       <UserBox>
         <Link to="/profile">
