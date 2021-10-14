@@ -8,12 +8,12 @@ import { MdDelete, MdOutlineEdit } from "react-icons/md";
 
 interface Props {
   info: {
-    text: string;
+    text?: string;
     id: string;
     fileUrl?: string;
-    userPhotoURL: string;
-    userNickName: string;
-    createdAd: string;
+    userPhotoURL?: string;
+    userNickName?: string;
+    createdAd: number;
   };
   isOwner: boolean;
 }

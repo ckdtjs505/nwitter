@@ -21,9 +21,19 @@ const Msg = styled.div`
   text-align: center;
 `;
 
+interface nweetsType {
+  id: string;
+  text?: string;
+  userId?: string;
+  userNickName?: string;
+  userPhotoURL?: string;
+  createdAd: number;
+  fileUrl?: string;
+}
+
 const Profile: React.FC = () => {
   const userInfo = useContext(AuthContext);
-  const [userNweets, setuserNweets] = useState([]);
+  const [userNweets, setUserNweets] = useState<nweetsType[]>([]);
   const [newdisplayName, setNewDisplayName] = useState(userInfo?.user?.displayName);
 
   const history = useHistory();
@@ -35,16 +45,17 @@ const Profile: React.FC = () => {
   useEffect(() => {
     // 자신이 올린 Nweets 모아보기
     onSnapshot(fireCollection, snapShot => {
-      const nweets: any = snapShot.docs
-        .filter((ele: any) => ele.data().userId === userInfo?.user?.uid)
-        .map((ele: any) => {
+      const nweets: nweetsType[] = snapShot.docs
+        .filter(ele => ele.data().userId === userInfo?.user?.uid)
+        .map(ele => {
           return {
             id: ele.id,
+            createdAd: ele.data().createdAd,
             ...ele.data()
           };
         });
 
-      setuserNweets(nweets);
+      setUserNweets(nweets);
     });
   }, []);
 
@@ -102,8 +113,8 @@ const Profile: React.FC = () => {
           </Msg>
         ) : (
           userNweets
-            .sort((a: any, b: any) => b.createdAd - a.createdAd)
-            .map((ele: any, idx) => {
+            .sort((a, b) => (b.createdAd > a.createdAd ? 1 : -1))
+            .map((ele, idx) => {
               return <Nweets key={idx} info={ele} isOwner={ele.userId === userInfo?.user?.uid} />;
             })
         )}
