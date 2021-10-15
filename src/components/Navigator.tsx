@@ -1,8 +1,10 @@
 import { signOut } from "@firebase/auth";
 import { AuthContext } from "context";
 import { firebaseAuth } from "firebase";
-import { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { FcCheckmark } from "react-icons/fc";
+import { IoIosMore } from "react-icons/io";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import defaultImg from "../assets/default.png";
 import NavList from "./NavList";
@@ -21,14 +23,17 @@ const Container = styled.nav`
   @media (max-width: 860px) {
     width: 65px;
   }
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 `;
 
 const Img = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 5rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin: auto;
 `;
 
 const Strong = styled.strong`
@@ -37,26 +42,66 @@ const Strong = styled.strong`
 
 const UserBox = styled.div`
   display: flex;
+  height: 4rem;
   margin-bottom: 1rem;
-  width: 283px;
-  overflow: hidden;
+
+  :hover {
+    background-color: #e7e7e8;
+    border-radius: 2rem;
+    cursor: pointer;
+  }
+`;
+
+const ToolTipUserBox = styled.div`
+  display: flex;
+  height: 4rem;
+
+  :hover {
+    cursor: default;
+  }
 `;
 
 const UserSetting = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 70%;
+  flex-direction: row;
   justify-content: center;
-
+  align-content: center;
+  margin: auto 0;
   @media (max-width: 860px) {
     display: none;
   }
 `;
 
-const LogoutButton = styled.button`
-  height: 20px;
+const ThreeDot = styled(IoIosMore)`
   margin: auto;
-  margin-left: 4rem;
-  border: none;
+`;
+
+const Checkmark = styled(FcCheckmark)`
+  margin: auto;
+`;
+
+const ToolTip = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 6rem;
+  width: 280px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 1.5rem;
+  background-color: white;
+`;
+
+const LogoutButton = styled.div`
+  height: 2rem;
+  width: 100%;
+  text-align: center;
+  /* border: rgb(239, 243, 244) 1px solid; */
+  padding-top: 1rem;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Navigator = () => {
@@ -68,6 +113,22 @@ const Navigator = () => {
     });
   };
 
+  const [isClickUserBox, setIsClickUserBox] = useState(false);
+
+  const handleUserBox = () => {
+    setIsClickUserBox(!isClickUserBox);
+  };
+
+  useEffect(() => {
+    // 유저박스를 on/off
+    if (!isClickUserBox) return;
+
+    const update = () => setIsClickUserBox(!isClickUserBox);
+    window.addEventListener("click", update);
+
+    return () => window.removeEventListener("click", update);
+  }, [isClickUserBox]);
+
   return (
     <Container>
       <div>
@@ -75,18 +136,33 @@ const Navigator = () => {
         <NavList type="Home"> </NavList>
         <NavList type="Profile"> </NavList>
       </div>
-      <UserBox>
-        <Link to="/profile">
-          <Img
-            src={userInfo?.user?.photoURL === null ? defaultImg : userInfo?.user?.photoURL}
-          ></Img>
-        </Link>
+      {isClickUserBox ? (
+        <ToolTip>
+          <ToolTipUserBox>
+            <Img
+              src={userInfo?.user?.photoURL === null ? defaultImg : userInfo?.user?.photoURL}
+            ></Img>
+            <UserSetting>
+              <div>
+                <Strong>{userInfo?.user?.displayName}</Strong>
+                <div style={{ color: "#677682" }}>{userInfo?.user?.email}</div>
+              </div>
+            </UserSetting>
+            <Checkmark />
+          </ToolTipUserBox>
+          <LogoutButton onClick={handleLogout}>Log out {userInfo?.user?.displayName} </LogoutButton>
+        </ToolTip>
+      ) : (
+        ""
+      )}
+      <UserBox onClick={handleUserBox}>
+        <Img src={userInfo?.user?.photoURL === null ? defaultImg : userInfo?.user?.photoURL}></Img>
         <UserSetting>
           <div>
             <Strong>{userInfo?.user?.displayName}</Strong>
-            <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+            <div style={{ color: "#677682" }}>{userInfo?.user?.email}</div>
           </div>
-          <div style={{ color: "#677682" }}>{userInfo?.user?.email}</div>
+          <ThreeDot />
         </UserSetting>
       </UserBox>
     </Container>
