@@ -23,7 +23,6 @@ const Item = styled.div`
   line-height: 50px;
   text-align: center;
   border-radius: 2rem;
-  width: 100%;
   /* font-weight: 700; */
 
   :hover {
@@ -31,6 +30,7 @@ const Item = styled.div`
   }
 
   @media (max-width: 450px) {
+    width: 100%;
     border-radius: 0;
   }
 `;
