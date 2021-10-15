@@ -9,18 +9,9 @@ import { AuthContext } from "context";
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   width: 620px;
   border-right: rgb(239, 243, 244) 1px solid;
-  // 스크롤바 생성
-  overflow-y: scroll;
-  // 스크롤바 미노출
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
 
   @media (max-width: 860px) {
     width: 95%;

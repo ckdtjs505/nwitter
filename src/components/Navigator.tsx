@@ -14,6 +14,9 @@ const Container = styled.nav`
   width: 234px;
   height: 100vh;
   border-right: rgb(239, 243, 244) 1px solid;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
 
   @media (max-width: 860px) {
     width: 65px;
