@@ -149,6 +149,9 @@ a:active {
 .App {
   display: flex;
   justify-content: center;
+  @media (max-width: 450px) {
+    flex-direction: column-reverse;
+  }
 }
 `;
 

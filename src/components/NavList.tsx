@@ -12,6 +12,9 @@ const NavItem = styled(Link)`
   display: flex;
   height: 58.25px;
   padding: 4px 0 4px 0;
+  @media (max-width: 450px) {
+    width: 100%;
+  }
 `;
 
 const Item = styled.div`
@@ -20,10 +23,15 @@ const Item = styled.div`
   line-height: 50px;
   text-align: center;
   border-radius: 2rem;
+  width: 100%;
   /* font-weight: 700; */
 
   :hover {
     background-color: #e7e7e8;
+  }
+
+  @media (max-width: 450px) {
+    border-radius: 0;
   }
 `;
 

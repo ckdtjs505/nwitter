@@ -15,6 +15,7 @@ export const Main = styled.div`
 
   @media (max-width: 860px) {
     width: 95%;
+    margin-bottom: 3rem;
   }
 `;
 

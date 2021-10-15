@@ -25,7 +25,14 @@ const Container = styled.nav`
   }
 
   @media (max-width: 450px) {
-    display: none;
+    height: 6vh;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    border-top: rgb(239, 243, 244) 1px solid;
+    z-index: 5;
   }
 `;
 
@@ -49,6 +56,10 @@ const UserBox = styled.div`
     background-color: #e7e7e8;
     border-radius: 2rem;
     cursor: pointer;
+  }
+
+  @media (max-width: 450px) {
+    display: none;
   }
 `;
 
@@ -104,6 +115,16 @@ const LogoutButton = styled.div`
   }
 `;
 
+const NavBox = styled.div`
+  @media (max-width: 450px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    bottom: 1rem;
+  }
+`;
+
 const Navigator = () => {
   const userInfo = useContext(AuthContext);
   const history = useHistory();
@@ -131,11 +152,11 @@ const Navigator = () => {
 
   return (
     <Container>
-      <div>
+      <NavBox>
         <NavList type="Icon"> </NavList>
         <NavList type="Home"> </NavList>
         <NavList type="Profile"> </NavList>
-      </div>
+      </NavBox>
       {isClickUserBox ? (
         <ToolTip>
           <ToolTipUserBox>
