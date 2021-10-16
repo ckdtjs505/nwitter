@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { User } from "@firebase/auth";
 import { firebaseAuth } from "firebase";
 import { AuthContext } from "context";
-import _ from "lodash";
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [init, setInit] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
   const [isLogin, setIsLogin] = useState(false);
+  const [displayName, setDisplayName] = useState<string | null | undefined>("");
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(firebaseUser => {
-      setUser(firebaseUser);
+      setDisplayName(firebaseUser?.displayName);
       setIsLogin(firebaseUser ? true : false);
       setInit(true);
     });
@@ -20,19 +18,16 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   // 유저 정보 변경
-  const updateUser = (newdisplayName: string) => {
-    const currentUser: any = firebaseAuth.currentUser;
-    currentUser.displayName = newdisplayName;
-    setUser(_.cloneDeep(currentUser));
+  const updateUser = (newdisplayName: any) => {
+    setDisplayName(newdisplayName);
   };
 
   let userValue = {
     init,
-    user,
-    setUser,
     isLogin,
     setIsLogin,
-    updateUser
+    updateUser,
+    displayName
   };
 
   return <AuthContext.Provider value={userValue}>{children}</AuthContext.Provider>;

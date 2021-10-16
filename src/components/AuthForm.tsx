@@ -35,11 +35,7 @@ export const AuthButton = styled.button`
   border: solid 1px black;
 `;
 
-interface Props {
-  setIsLogin: Function | undefined;
-}
-
-const AuthForm: React.FC<Props> = ({ setIsLogin }) => {
+const AuthForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [createNewAccount, setCreateNewAccount] = useState(false);
@@ -66,7 +62,6 @@ const AuthForm: React.FC<Props> = ({ setIsLogin }) => {
       } else {
         // 로그인
         result = await signInWithEmailAndPassword(firebaseAuth, email, password);
-        setIsLogin?.(true);
       }
       console.log(result);
     } catch (error) {

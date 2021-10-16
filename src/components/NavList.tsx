@@ -56,7 +56,7 @@ const IconBox = styled.div`
 `;
 
 const Icon: React.FC<Props> = ({ type }) => {
-  const IconSvg = (): any => {
+  const IconSvg = () => {
     switch (type) {
       case "Icon":
         return <IoLogoTwitter size="1.3rem" />;

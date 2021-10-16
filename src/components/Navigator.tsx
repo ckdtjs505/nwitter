@@ -161,27 +161,39 @@ const Navigator = () => {
         <ToolTip>
           <ToolTipUserBox>
             <Img
-              src={userInfo?.user?.photoURL === null ? defaultImg : userInfo?.user?.photoURL}
+              src={
+                firebaseAuth.currentUser?.photoURL === null
+                  ? defaultImg
+                  : firebaseAuth.currentUser?.photoURL
+              }
             ></Img>
             <UserSetting>
               <div>
-                <Strong>{userInfo?.user?.displayName}</Strong>
-                <div style={{ color: "#677682" }}>{userInfo?.user?.email}</div>
+                <Strong>{userInfo?.displayName}</Strong>
+                <div style={{ color: "#677682" }}>{firebaseAuth.currentUser?.email}</div>
               </div>
             </UserSetting>
             <Checkmark />
           </ToolTipUserBox>
-          <LogoutButton onClick={handleLogout}>Log out {userInfo?.user?.displayName} </LogoutButton>
+          <LogoutButton onClick={handleLogout}>
+            Log out {firebaseAuth.currentUser?.displayName}{" "}
+          </LogoutButton>
         </ToolTip>
       ) : (
         ""
       )}
       <UserBox onClick={handleUserBox}>
-        <Img src={userInfo?.user?.photoURL === null ? defaultImg : userInfo?.user?.photoURL}></Img>
+        <Img
+          src={
+            firebaseAuth.currentUser?.photoURL === null
+              ? defaultImg
+              : firebaseAuth.currentUser?.photoURL
+          }
+        ></Img>
         <UserSetting>
           <div>
-            <Strong>{userInfo?.user?.displayName}</Strong>
-            <div style={{ color: "#677682" }}>{userInfo?.user?.email}</div>
+            <Strong>{firebaseAuth.currentUser?.displayName}</Strong>
+            <div style={{ color: "#677682" }}>{firebaseAuth.currentUser?.email}</div>
           </div>
           <ThreeDot />
         </UserSetting>
