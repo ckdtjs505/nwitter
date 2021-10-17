@@ -4,6 +4,7 @@ import Nweets from "components/Nweets";
 import NweetsFrom from "components/NweetsForm";
 import { firebaseAuth, fireCollection } from "firebase";
 import styled from "styled-components";
+import LoadingFile from "components/LoadingFile";
 
 interface nweetsType {
   id: string;
@@ -70,15 +71,19 @@ const Home: React.FC = () => {
       </TitleBox>
       <div>
         <NweetsFrom />
-        {nweets
-          .sort((a, b) => b.createdAd - a.createdAd)
-          .map(ele => (
-            <Nweets
-              key={ele.id}
-              info={ele}
-              isOwner={ele.userId === firebaseAuth.currentUser?.uid}
-            />
-          ))}
+        {nweets?.length === 0 ? (
+          <LoadingFile />
+        ) : (
+          nweets
+            .sort((a, b) => b.createdAd - a.createdAd)
+            .map(ele => (
+              <Nweets
+                key={ele.id}
+                info={ele}
+                isOwner={ele.userId === firebaseAuth.currentUser?.uid}
+              />
+            ))
+        )}
       </div>
     </Main>
   );

@@ -5,6 +5,7 @@ import { deleteObject, ref } from "@firebase/storage";
 import styled from "styled-components";
 import defaultImg from "../assets/default.png";
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
+import { useHistory } from "react-router";
 
 interface Props {
   info: {
@@ -24,6 +25,11 @@ const NweetData = styled.div`
   min-height: 60px;
   border-bottom: rgb(239, 243, 244) 1px solid;
   justify-content: space-between;
+
+  :hover {
+    background-color: #f3f4f6;
+    cursor: pointer;
+  }
 `;
 
 const Img = styled.img`
@@ -44,7 +50,7 @@ export const NweetImg = styled.img`
   border: solid 1px #d6dfe3;
   border-radius: 1rem;
   padding: 0.5rem;
-  margin: 0.5rem;
+  margin-top: 0.5rem;
 `;
 
 const Title = styled.span`
@@ -81,6 +87,7 @@ export const DefaultButton = styled.button`
 const Nweets: React.FC<Props> = ({ info, isOwner }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(info.text);
+  const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -111,9 +118,13 @@ const Nweets: React.FC<Props> = ({ info, isOwner }) => {
     });
   };
 
+  const hanldNweetClick = () => {
+    history.push(`/${info.id}/${info.createdAd}`);
+  };
+
   return (
     <div key={info.id}>
-      <NweetData>
+      <NweetData onClick={hanldNweetClick}>
         <LeftBox>
           <Img src={info.userPhotoURL === null ? defaultImg : info.userPhotoURL} alt="" />
           <div>

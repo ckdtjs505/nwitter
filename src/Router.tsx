@@ -5,6 +5,8 @@ import Profile from "route/Profile";
 import Navigator from "components/Navigator";
 import { useContext } from "react";
 import { AuthContext } from "context";
+import Nweet from "route/Nweet";
+
 
 const Routes = () => {
   const userInfo = useContext(AuthContext);
@@ -18,9 +20,14 @@ const Routes = () => {
             <Route exact path="/profile">
               <Profile></Profile>
             </Route>
-            <Route exact path="/">
+            <Route exact path="/home">
               <Home />
             </Route>
+
+            <Route path="/:userId/:createTime">
+              <Nweet />
+            </Route>
+
             <Route path="*">
               <Home />
             </Route>

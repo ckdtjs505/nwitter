@@ -3,8 +3,9 @@ import Loader from "react-loader-spinner";
 import styled from "styled-components";
 
 const Layout = styled.div`
-  margin: auto;
-  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 `;
 
 const Loading: React.FC = () => {
