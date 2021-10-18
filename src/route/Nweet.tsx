@@ -5,13 +5,11 @@ import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { Main, nweetsType } from "./Home";
 import { FiArrowLeft } from "react-icons/fi";
-import { GoComment } from "react-icons/go";
-import { AiOutlineRetweet } from "react-icons/ai";
-import { HiOutlineHeart } from "react-icons/hi";
-import { BiShare } from "react-icons/bi";
 import styled from "styled-components";
 import defaultImg from "assets/default.png";
 import NweetsFrom from "components/NweetsForm";
+import NweetsBtns from "components/NweetBtns";
+import { NweetImg } from "components/Nweets";
 
 const TitleBox = styled.div`
   display: flex;
@@ -62,6 +60,32 @@ const Img = styled.img`
   border-radius: 5rem;
 `;
 
+const Content = styled.div`
+  padding: 10px;
+  border-bottom: rgb(239, 243, 244) 1px solid;
+`;
+
+const UserValue = styled.div`
+  margin-left: 0.5rem;
+`;
+
+const NickName = styled.h2`
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+`;
+
+const Text = styled.p`
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+`;
+
+const Time = styled.span`
+  font-size: 14px;
+  color: rgb(83, 100, 113);
+`;
+
 const Nweet = () => {
   const { userId } = useParams<{ userId?: string }>();
   const [nweet, setNweet] = useState<nweetsType[]>();
@@ -93,42 +117,31 @@ const Nweet = () => {
         </ArrowLeftbtn>
         <Title> Nweet </Title>
       </TitleBox>
-      <div>
+      <Content>
         {nweet?.length === 1 ? (
           <article>
-            {console.log(new Date(nweet?.[0].createdAd))}
             <UserBox>
               <ImgBox>
                 <Img src={nweet?.[0].userPhotoURL ? nweet?.[0].userPhotoURL : defaultImg}></Img>
               </ImgBox>
-              <div>
-                <div>{nweet?.[0].userNickName}</div>
+              <UserValue>
+                <NickName>{nweet?.[0].userNickName}</NickName>
                 <div>{nweet?.[0].id}</div>
-              </div>
+              </UserValue>
             </UserBox>
-            <div> {nweet?.[0].text}</div>
-            <div> {new Date(nweet?.[0].createdAd).toDateString()}</div>
-            <div>
-              <button>
-                <GoComment size={15} />
-              </button>
-              <button>
-                <AiOutlineRetweet size={15} />
-              </button>
-              <button>
-                <HiOutlineHeart size={15} />
-              </button>
-              <button>
-                <BiShare size={15} />
-              </button>
 
-              <NweetsFrom />
+            <div>
+              <Text> {nweet?.[0].text}</Text>
+              <NweetImg src={nweet?.[0].fileUrl} />
+              <Time>{new Date(nweet?.[0].createdAd).toDateString()}</Time>
+              <NweetsBtns like={nweet?.[0].like} id={nweet?.[0].id} />
             </div>
           </article>
         ) : (
           <LoadingFile />
         )}
-      </div>
+      </Content>
+      <NweetsFrom />
     </Main>
   );
 };

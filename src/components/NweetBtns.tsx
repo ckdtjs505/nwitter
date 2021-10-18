@@ -32,17 +32,15 @@ const BtnBox = styled.button`
   }
 `;
 
-const NweetsBtns: React.FC<Props> = ({ like, id }) => {
+const NweetsBtns: React.FC<Props> = ({ like = [], id }) => {
   const isLoginUserLike = () => {
-    like = like ? like : [];
     return like.includes(firebaseAuth.currentUser?.uid ? firebaseAuth.currentUser?.uid : "");
   };
   const handleLikeBtnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    like = like ? like : [];
     let likeData;
-    if (like.includes(firebaseAuth.currentUser?.uid ? firebaseAuth.currentUser?.uid : "")) {
+    if (isLoginUserLike()) {
       likeData = [...like].filter(ele => ele !== firebaseAuth.currentUser?.uid);
     } else {
       likeData = [...like, firebaseAuth.currentUser?.uid];

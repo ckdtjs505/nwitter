@@ -76,7 +76,7 @@ const SettingBtn = styled.div`
   display: flex;
 `;
 
-const InfoText = styled.p`
+export const InfoText = styled.p`
   width: 100%;
   word-break: break-all;
   padding-bottom: 0.5rem;
