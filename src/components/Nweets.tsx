@@ -6,6 +6,7 @@ import styled from "styled-components";
 import defaultImg from "../assets/default.png";
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
 import { useHistory } from "react-router";
+import NweetBtn from "components/NweetBtns";
 
 interface Props {
   info: {
@@ -15,6 +16,7 @@ interface Props {
     userPhotoURL?: string;
     userNickName?: string;
     createdAd: number;
+    like: string[];
   };
   isOwner: boolean;
 }
@@ -26,7 +28,7 @@ const NweetData = styled.div`
   border-bottom: rgb(239, 243, 244) 1px solid;
   justify-content: space-between;
 
-  :hover {
+  &:hover {
     background-color: #f3f4f6;
     cursor: pointer;
   }
@@ -40,16 +42,23 @@ const Img = styled.img`
   margin-right: 0.5rem;
 `;
 
-const LeftBox = styled.div`
+const Contents = styled.div`
+  width: 100%;
+`;
+
+const ContentHeader = styled.h2`
+  margin-bottom: 0.5rem;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const NweetImg = styled.img`
   max-width: 100%;
+  width: 96%;
   height: auto;
   border: solid 1px #d6dfe3;
   border-radius: 1rem;
-  padding: 0.5rem;
   margin-top: 0.5rem;
 `;
 
@@ -63,14 +72,14 @@ const Button = styled.button`
   border: none;
 `;
 
-const ButtonBox = styled.div`
-  position: relative;
-  width: 15px;
+const SettingBtn = styled.div`
+  display: flex;
 `;
 
 const InfoText = styled.p`
   width: 100%;
   word-break: break-all;
+  padding-bottom: 0.5rem;
 `;
 
 const InputFix = styled.input`
@@ -90,13 +99,16 @@ const Nweets: React.FC<Props> = ({ info, isOwner }) => {
   const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     const {
       target: { value }
     } = e;
     setEditText(value);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     const ok = confirm("정말로 삭제하시겠습니까?");
     if (ok) {
       deleteDoc(doc(firestore, `nweets/${info.id}`));
@@ -104,14 +116,16 @@ const Nweets: React.FC<Props> = ({ info, isOwner }) => {
     }
   };
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setIsEdit(prev => !prev);
   };
 
   const handleSumbit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
-    handleToggle();
+    setIsEdit(prev => !prev);
 
     await updateDoc(doc(firestore, `nweets/${info.id}`), {
       text: editText
@@ -125,41 +139,58 @@ const Nweets: React.FC<Props> = ({ info, isOwner }) => {
   return (
     <div key={info.id}>
       <NweetData onClick={hanldNweetClick}>
-        <LeftBox>
-          <Img src={info.userPhotoURL === null ? defaultImg : info.userPhotoURL} alt="" />
-          <div>
-            <h3 style={{ marginBottom: "0.5rem" }}>
+        <Img src={info.userPhotoURL === null ? defaultImg : info.userPhotoURL} alt="" />
+        <Contents>
+          <ContentHeader>
+            <div>
               <Title>{info.userNickName} </Title>
               {` · ${new Date(info.createdAd).getMonth() + 1}/${new Date(
                 info.createdAd
               ).getDate()}`}
-            </h3>
-            {isEdit ? (
-              <form onSubmit={handleSumbit}>
-                <InputFix
-                  type="text"
-                  placeholder={"수정할 데이터를 입력해주세요"}
-                  onChange={handleChange}
-                  value={editText}
-                />
-                <DefaultButton type="submit">완료</DefaultButton>
-              </form>
-            ) : (
-              <InfoText> {info.text} </InfoText>
+            </div>
+
+            {isOwner && (
+              <SettingBtn>
+                <Button onClick={handleDelete}>
+                  <MdDelete />
+                </Button>
+                <Button onClick={handleToggle}>
+                  <MdOutlineEdit />
+                </Button>
+              </SettingBtn>
             )}
-            {info.fileUrl && <NweetImg src={info.fileUrl} />}
-          </div>
-        </LeftBox>
-        {isOwner && (
-          <ButtonBox>
-            <Button onClick={handleDelete}>
-              <MdDelete />
-            </Button>
-            <Button onClick={handleToggle}>
-              <MdOutlineEdit />
-            </Button>
-          </ButtonBox>
-        )}
+          </ContentHeader>
+
+          {isEdit ? (
+            <form onSubmit={handleSumbit}>
+              <InputFix
+                type="text"
+                placeholder={"수정할 데이터를 입력해주세요"}
+                onChange={handleChange}
+                onClick={e => {
+                  // 불필요하게 중복된 소스인듯.. 못고칠까?
+                  e.stopPropagation();
+                }}
+                value={editText}
+              />
+              <DefaultButton
+                type="submit"
+                onClick={e => {
+                  // 불필요하게 중복된 소스인듯.. 못고칠까?
+                  e.stopPropagation();
+                }}
+              >
+                완료
+              </DefaultButton>
+            </form>
+          ) : (
+            <InfoText> {info.text} </InfoText>
+          )}
+
+          {info.fileUrl && <NweetImg src={info.fileUrl} />}
+
+          <NweetBtn id={info.id} like={info.like} />
+        </Contents>
       </NweetData>
     </div>
   );

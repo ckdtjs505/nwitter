@@ -3,7 +3,7 @@ import LoadingFile from "components/LoadingFile";
 import { fireCollection } from "firebase";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
-import { Main } from "./Home";
+import { Main, nweetsType } from "./Home";
 import { FiArrowLeft } from "react-icons/fi";
 import { GoComment } from "react-icons/go";
 import { AiOutlineRetweet } from "react-icons/ai";
@@ -12,16 +12,6 @@ import { BiShare } from "react-icons/bi";
 import styled from "styled-components";
 import defaultImg from "assets/default.png";
 import NweetsFrom from "components/NweetsForm";
-
-interface nweetsType {
-  id: string;
-  text?: string;
-  userId?: string;
-  userNickName?: string;
-  userPhotoURL?: string;
-  createdAd: number;
-  fileUrl?: string;
-}
 
 const TitleBox = styled.div`
   display: flex;

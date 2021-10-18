@@ -6,7 +6,7 @@ import { firebaseAuth, fireCollection } from "firebase";
 import styled from "styled-components";
 import LoadingFile from "components/LoadingFile";
 
-interface nweetsType {
+export interface nweetsType {
   id: string;
   text?: string;
   userId?: string;
@@ -14,6 +14,7 @@ interface nweetsType {
   userPhotoURL?: string;
   createdAd: number;
   fileUrl?: string;
+  like: string[];
 }
 
 export const Main = styled.div`
@@ -57,6 +58,7 @@ const Home: React.FC = () => {
         return {
           id: ele.id,
           createdAd: ele.data().createdAd,
+          like: ele.data().like,
           ...ele.data()
         };
       });

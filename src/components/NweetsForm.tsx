@@ -101,6 +101,7 @@ const NweetsFrom: React.FC = () => {
       userId: firebaseAuth.currentUser?.uid,
       userPhotoURL: firebaseAuth.currentUser?.photoURL,
       userNickName: firebaseAuth.currentUser?.displayName,
+      like: [],
       fileUrl
     });
   };

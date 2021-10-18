@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { signOut, updateProfile } from "@firebase/auth";
-import { Main, Title, TitleBox } from "./Home";
+import { Main, nweetsType, Title, TitleBox } from "./Home";
 import Nweets from "components/Nweets";
 import styled from "styled-components";
 import { AuthContext } from "context";
@@ -20,16 +20,6 @@ const Msg = styled.div`
   font-size: 1.2rem;
   text-align: center;
 `;
-
-interface nweetsType {
-  id: string;
-  text?: string;
-  userId?: string;
-  userNickName?: string;
-  userPhotoURL?: string;
-  createdAd: number;
-  fileUrl?: string;
-}
 
 const Profile: React.FC = () => {
   const userInfo = useContext(AuthContext);
@@ -51,6 +41,7 @@ const Profile: React.FC = () => {
           return {
             id: ele.id,
             createdAd: ele.data().createdAd,
+            like: ele.data().like,
             ...ele.data()
           };
         });
