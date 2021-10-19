@@ -1,5 +1,5 @@
 import { fireStoage, firestore } from "firebase";
-import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "@firebase/firestore";
 import React, { useState } from "react";
 import { deleteObject, ref } from "@firebase/storage";
 import styled from "styled-components";
@@ -7,19 +7,6 @@ import defaultImg from "../assets/default.png";
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
 import { useHistory } from "react-router";
 import NweetBtn from "components/NweetBtns";
-
-interface Props {
-  info: {
-    text?: string;
-    id: string;
-    fileUrl?: string;
-    userPhotoURL?: string;
-    userNickName?: string;
-    createdAd: number;
-    like: string[];
-  };
-  isOwner: boolean;
-}
 
 const NweetData = styled.div`
   display: flex;
@@ -93,6 +80,21 @@ export const DefaultButton = styled.button`
   height: 1.5rem;
 `;
 
+interface Props {
+  info: {
+    text?: string;
+    id: string;
+    fileUrl?: string;
+    userPhotoURL?: string;
+    userNickName?: string;
+    createdAd: number;
+    like: string[];
+    relay: string[];
+    parent: string;
+  };
+  isOwner: boolean;
+}
+
 const Nweets: React.FC<Props> = ({ info, isOwner }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState(info.text);
@@ -107,12 +109,18 @@ const Nweets: React.FC<Props> = ({ info, isOwner }) => {
     setEditText(value);
   };
 
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    const data: any = await (await getDoc(doc(firestore, `nweets/${info.parent}`))).data();
     const ok = confirm("정말로 삭제하시겠습니까?");
     if (ok) {
       deleteDoc(doc(firestore, `nweets/${info.id}`));
       if (info.fileUrl) deleteObject(ref(fireStoage, info.fileUrl));
+      // 부모 뉴윗에서 제거하기
+      if (info.parent)
+        updateDoc(doc(firestore, `nweets/${info.parent}`), {
+          relay: data && data.relay.filter((ele: any) => ele !== info.id)
+        });
     }
   };
 
@@ -189,7 +197,7 @@ const Nweets: React.FC<Props> = ({ info, isOwner }) => {
 
           {info.fileUrl && <NweetImg src={info.fileUrl} />}
 
-          <NweetBtn id={info.id} like={info.like} />
+          <NweetBtn id={info.id} like={info.like} relay={info.relay} />
         </Contents>
       </NweetData>
     </div>

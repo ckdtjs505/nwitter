@@ -15,6 +15,9 @@ export interface nweetsType {
   createdAd: number;
   fileUrl?: string;
   like: string[];
+  relay: string[];
+  relayList?: nweetsType[];
+  parent: string;
 }
 
 export const Main = styled.div`
@@ -59,6 +62,8 @@ const Home: React.FC = () => {
           id: ele.id,
           createdAd: ele.data().createdAd,
           like: ele.data().like,
+          relay: ele.data().relay,
+          parent: ele.data().parent,
           ...ele.data()
         };
       });

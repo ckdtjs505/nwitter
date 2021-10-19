@@ -11,6 +11,7 @@ import styled from "styled-components";
 interface Props {
   id: string;
   like: string[];
+  relay: string[];
 }
 
 const Contents = styled.div`
@@ -32,7 +33,7 @@ const BtnBox = styled.button`
   }
 `;
 
-const NweetsBtns: React.FC<Props> = ({ like = [], id }) => {
+const NweetsBtns: React.FC<Props> = ({ like = [], relay = [], id }) => {
   const isLoginUserLike = () => {
     return like.includes(firebaseAuth.currentUser?.uid ? firebaseAuth.currentUser?.uid : "");
   };
@@ -56,6 +57,7 @@ const NweetsBtns: React.FC<Props> = ({ like = [], id }) => {
         <BtnBox>
           <GoComment size={15} />
         </BtnBox>
+        {relay.length > 0 ? relay.length : ""}
       </div>
       <div>
         <BtnBox>

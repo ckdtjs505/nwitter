@@ -7,7 +7,6 @@ import { useContext } from "react";
 import { AuthContext } from "context";
 import Nweet from "route/Nweet";
 
-
 const Routes = () => {
   const userInfo = useContext(AuthContext);
   return (
@@ -24,7 +23,7 @@ const Routes = () => {
               <Home />
             </Route>
 
-            <Route path="/:userId/:createTime">
+            <Route exact path="/:userId/:createTime">
               <Nweet />
             </Route>
 

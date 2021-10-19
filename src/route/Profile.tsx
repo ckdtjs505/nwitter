@@ -42,6 +42,8 @@ const Profile: React.FC = () => {
             id: ele.id,
             createdAd: ele.data().createdAd,
             like: ele.data().like,
+            relay: ele.data().relay,
+            parent: ele.data().parent,
             ...ele.data()
           };
         });

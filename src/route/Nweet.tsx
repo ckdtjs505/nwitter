@@ -1,6 +1,6 @@
-import { onSnapshot } from "@firebase/firestore";
+import { doc, getDoc, onSnapshot } from "@firebase/firestore";
 import LoadingFile from "components/LoadingFile";
-import { fireCollection } from "firebase";
+import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { Main, nweetsType } from "./Home";
@@ -9,7 +9,7 @@ import styled from "styled-components";
 import defaultImg from "assets/default.png";
 import NweetsFrom from "components/NweetsForm";
 import NweetsBtns from "components/NweetBtns";
-import { NweetImg } from "components/Nweets";
+import Nweets, { NweetImg } from "components/Nweets";
 
 const TitleBox = styled.div`
   display: flex;
@@ -89,6 +89,7 @@ const Time = styled.span`
 const Nweet = () => {
   const { userId } = useParams<{ userId?: string }>();
   const [nweet, setNweet] = useState<nweetsType[]>();
+  const [subNweet, setSubNweet] = useState<any>([]);
   const history = useHistory();
   const handleArrowLeftbtnClick = () => {
     history.goBack();
@@ -99,9 +100,22 @@ const Nweet = () => {
       const nweetInfo: any = snapShot.docs
         .filter(ele => ele.id === userId)
         .map(ele => {
+          let relayListData;
+          if (ele.data().relay) {
+            relayListData = ele.data().relay.map(async (_: any) => {
+              const data: any = (await getDoc(doc(firestore, `nweets/${_}`))).data();
+              return { data, id: _ };
+            });
+
+            Promise.all(relayListData).then(results => {
+              setSubNweet(results);
+            });
+          }
+
           return {
             id: ele.id,
             createdAd: ele.data().createdAd,
+            relayList: [],
             ...ele.data()
           };
         });
@@ -134,14 +148,28 @@ const Nweet = () => {
               <Text> {nweet?.[0].text}</Text>
               <NweetImg src={nweet?.[0].fileUrl} />
               <Time>{new Date(nweet?.[0].createdAd).toDateString()}</Time>
-              <NweetsBtns like={nweet?.[0].like} id={nweet?.[0].id} />
+              <NweetsBtns like={nweet?.[0].like} id={nweet?.[0].id} relay={nweet?.[0].relay} />
             </div>
           </article>
         ) : (
           <LoadingFile />
         )}
       </Content>
-      <NweetsFrom />
+      <div>
+        <NweetsFrom relayId={nweet?.[0].id} relay={nweet?.[0].relay} />
+        {subNweet.length === 0
+          ? ""
+          : subNweet &&
+            subNweet
+              .sort((a: any, b: any) => b.createdAd - a.createdAd)
+              .map((ele: any) => (
+                <Nweets
+                  key={ele.id}
+                  info={{ id: ele.id, ...ele.data }}
+                  isOwner={ele.data.userId === firebaseAuth.currentUser?.uid}
+                />
+              ))}
+      </div>
     </Main>
   );
 };
