@@ -6,12 +6,12 @@ import { Main, nweetsType, Title, TitleBox } from "./Home";
 import Nweets from "components/Nweets";
 import styled from "styled-components";
 import { AuthContext } from "context";
+import { GrFormClose } from "react-icons/gr";
 
 const ProfileDiv = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: rgb(239, 243, 244) 1px solid;
 `;
 
 const Msg = styled.div`
@@ -69,10 +69,81 @@ const FollowBox = styled.div`
   }
 `;
 
+const Modal = styled.form`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  width: 50%;
+  /* height: 5%; */
+  border-radius: 1rem;
+`;
+
+const ModalBtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+
+  text-align: center;
+  height: 50px;
+  border-bottom: solid 1px #cfd9de;
+`;
+
+const CloseBtn = styled.button`
+  background: none;
+  border: none;
+  padding-left: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const ModalTitle = styled.div`
+  font-size: 1rem;
+  margin-left: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-weight: 700;
+`;
+
+const SaveBtn = styled.button`
+  margin-left: auto;
+  margin-right: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  background: black;
+  height: 25px;
+  border: none;
+  border-radius: 1rem;
+  color: white;
+  width: 4rem;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const Dim = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+`;
+
+const Input = styled.input`
+  width: 80%;
+`;
+
 const Profile: React.FC = () => {
   const userInfo = useContext(AuthContext);
   const [userNweets, setUserNweets] = useState<nweetsType[]>([]);
   const [newdisplayName, setNewDisplayName] = useState(firebaseAuth.currentUser?.displayName);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     // 자신이 올린 Nweets 모아보기
@@ -140,7 +211,7 @@ const Profile: React.FC = () => {
               }
               alt="photo"
             />
-            <EditBtn>edit profile</EditBtn>
+            <EditBtn onClick={() => setIsEditMode(!isEditMode)}>edit profile</EditBtn>
           </ProfileImgBtn>
 
           <NickName>{firebaseAuth.currentUser?.displayName}</NickName>
@@ -164,16 +235,6 @@ const Profile: React.FC = () => {
 
         <div>contents</div>
       </div> */}
-      <ProfileDiv>
-        <form onSubmit={handleNickSumbit}>
-          <input
-            placeholder="닉네임을 입력"
-            value={newdisplayName ? newdisplayName : ""}
-            onChange={handleChange}
-          ></input>
-          <button type={"submit"}>Edit NickName</button>
-        </form>
-      </ProfileDiv>
 
       <TitleBox>
         <Title> My Nweets </Title>
@@ -197,6 +258,40 @@ const Profile: React.FC = () => {
             })
         )}
       </div>
+
+      {isEditMode ? (
+        <>
+          <Dim></Dim>
+          <Modal onSubmit={handleNickSumbit}>
+            <div>
+              <ModalBtnBox>
+                <CloseBtn
+                  onClick={() => {
+                    setIsEditMode(!isEditMode);
+                  }}
+                >
+                  <GrFormClose size={"20px"} />
+                </CloseBtn>
+                <ModalTitle> Edit Profile </ModalTitle>
+                <SaveBtn type={"submit"}> Save </SaveBtn>
+              </ModalBtnBox>
+
+              <div>
+                <ProfileDiv>
+                  <label>name</label>
+                  <Input
+                    placeholder="닉네임을 입력"
+                    value={newdisplayName ? newdisplayName : ""}
+                    onChange={handleChange}
+                  ></Input>
+                </ProfileDiv>
+              </div>
+            </div>
+          </Modal>
+        </>
+      ) : (
+        ""
+      )}
     </Main>
   );
 };
