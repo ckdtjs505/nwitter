@@ -1,5 +1,5 @@
 import { doc, getDoc, onSnapshot } from "@firebase/firestore";
-import LoadingFile from "components/LoadingFile";
+import LoadingFile from "components/Loading/LoadingFile";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
@@ -7,8 +7,8 @@ import { Main, nweetsType } from "./Home";
 import { FiArrowLeft } from "react-icons/fi";
 import styled from "styled-components";
 import defaultImg from "assets/default.png";
-import NweetsFrom from "components/NweetsForm";
-import NweetsBtns from "components/NweetBtns";
+import NweetsFrom from "components/Form/NweetsForm";
+import NweetsBtns from "components/Button/NweetBtns";
 import Nweets, { NweetImg } from "components/Nweets";
 
 const TitleBox = styled.div`

@@ -1,5 +1,5 @@
 import { signInWithPopup } from "@firebase/auth";
-import AuthForm, { AuthButton } from "components/AuthForm";
+import AuthForm, { AuthButton } from "components/Form/AuthForm";
 import { firebaseAuth, googleLoginProvider } from "firebase";
 import styled from "styled-components";
 import { FcCloseUpMode, FcGoogle } from "react-icons/fc";

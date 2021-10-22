@@ -1,6 +1,6 @@
+import React from "react";
 import { doc, updateDoc } from "@firebase/firestore";
 import { firebaseAuth, firestore } from "firebase";
-import React from "react";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { BiShare } from "react-icons/bi";
 import { FcLike } from "react-icons/fc";

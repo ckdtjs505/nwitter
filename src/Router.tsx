@@ -6,7 +6,6 @@ import Navigator from "components/Navigator";
 import { useContext } from "react";
 import { AuthContext } from "context";
 import Nweet from "route/Nweet";
-import Aside from "components/Aside";
 
 const Routes = () => {
   const userInfo = useContext(AuthContext);
@@ -32,8 +31,6 @@ const Routes = () => {
               <Home />
             </Route>
           </Switch>
-
-          <Aside />
         </>
       ) : (
         <Auth />

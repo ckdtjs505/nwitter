@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { onSnapshot } from "@firebase/firestore";
 import Nweets from "components/Nweets";
-import NweetsFrom from "components/NweetsForm";
+import NweetsFrom from "components/Form/NweetsForm";
 import { firebaseAuth, fireCollection } from "firebase";
 import styled from "styled-components";
-import LoadingFile from "components/LoadingFile";
+import LoadingFile from "components/Loading/LoadingFile";
 
 export interface nweetsType {
   id: string;
