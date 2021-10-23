@@ -6,64 +6,8 @@ import defaultImg from "assets/default.png";
 import { FiImage } from "react-icons/fi";
 import React, { useState } from "react";
 import { addDoc, doc, updateDoc } from "@firebase/firestore";
-import styled from "styled-components";
 import { DefaultButton, NweetImg } from "../Nweet/Nweets";
-
-const Form = styled.form`
-  display: flex;
-  padding: 10px;
-  border-bottom: rgb(239, 243, 244) 1px solid;
-`;
-
-const Img = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 5rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-`;
-
-const FileInput = styled.input`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-`;
-
-const NweetsInput = styled.input`
-  border: none;
-  margin-top: 1rem;
-  font-size: 20px;
-  width: 100%;
-`;
-
-const UploadBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: rgb(239, 243, 244) 1px solid;
-`;
-
-const NweetBtn = styled.button`
-  background-color: #1d9bf0;
-  color: white;
-  height: 36px;
-  width: 75.9688px;
-  font-weight: 700;
-  font-size: 15px;
-  border: none;
-  border-radius: 2rem;
-`;
-
-const Content = styled.div`
-  width: 100%;
-`;
+import { Content, FileInput, Img, NweetBtn, NweetForm, NweetsInput, UploadBox } from "./style";
 
 interface Props {
   relayId?: string;
@@ -138,7 +82,7 @@ const NweetsFrom: React.FC<Props> = ({ relayId, relay = [] }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <NweetForm onSubmit={handleSubmit}>
       <Img
         src={
           firebaseAuth.currentUser?.photoURL == undefined
@@ -174,7 +118,7 @@ const NweetsFrom: React.FC<Props> = ({ relayId, relay = [] }) => {
           <NweetBtn type="submit">Nweet</NweetBtn>
         </UploadBox>
       </Content>
-    </Form>
+    </NweetForm>
   );
 };
 

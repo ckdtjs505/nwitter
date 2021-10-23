@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ReactDOM from "react-dom";
-import Loading from "./components/Loading/Loading";
+import { Loading } from "components/loading/index";
 import Routes from "Router";
 import { AuthProvider } from "provider/AuthProvider";
 import { AuthContext } from "context/context";

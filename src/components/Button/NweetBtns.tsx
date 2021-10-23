@@ -6,32 +6,13 @@ import { BiShare } from "react-icons/bi";
 import { FcLike } from "react-icons/fc";
 import { GoComment } from "react-icons/go";
 import { HiOutlineHeart } from "react-icons/hi";
-import styled from "styled-components";
+import { BtnBox, Contents } from "./style";
 
 interface Props {
   id: string;
   like: string[];
   relay: string[];
 }
-
-const Contents = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 0.5rem;
-`;
-
-const BtnBox = styled.button`
-  border: none;
-  background: none;
-  width: 25px;
-  height: 25px;
-
-  &:hover {
-    cursor: pointer;
-    border-radius: 5rem;
-    background-color: #e1eef6;
-  }
-`;
 
 const NweetsBtns: React.FC<Props> = ({ like = [], relay = [], id }) => {
   const isLoginUserLike = () => {

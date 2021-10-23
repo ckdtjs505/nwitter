@@ -2,143 +2,31 @@ import React, { useContext, useEffect, useState } from "react";
 import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { updateProfile } from "@firebase/auth";
-import { Main, Title, TitleBox } from "./Home";
+import { Main, Title, TitleBox } from "../home/style";
 import Nweets from "components/Nweet/Nweets";
-import styled from "styled-components";
 import { AuthContext } from "context/context";
 import { GrFormClose } from "react-icons/gr";
 import { NweetsType } from "models/nweetType";
-
-const ProfileDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-`;
-
-const Msg = styled.div`
-  margin-top: 5rem;
-  font-size: 1.2rem;
-  text-align: center;
-`;
-const ProfileBox = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  div {
-    padding-bottom: 0.5rem;
-  }
-`;
-const ProfileBackground = styled.div`
-  height: 10rem;
-  background-color: #cfd9de;
-`;
-const ProfileInfo = styled.div`
-  padding: 0.5rem;
-`;
-const ProfileImgBtn = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const ProfileImg = styled.img`
-  width: 80px;
-  height: 80px;
-  border: 2px solid white;
-  border-radius: 5rem;
-  margin-top: -60px;
-`;
-const EditBtn = styled.button`
-  background: none;
-  border: soild 1px #cfd9de;
-  height: 24px;
-  border-radius: 2rem;
-`;
-const NickName = styled.div`
-  font-size: 1.3rem;
-  font-weight: 600;
-`;
-const JoinTime = styled.div`
-  font-size: 0.8rem;
-  color: #cfd9de;
-`;
-const FollowBox = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  div {
-    margin-right: 1rem;
-  }
-`;
-
-const Modal = styled.form`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  width: 50%;
-  /* height: 5%; */
-  border-radius: 1rem;
-`;
-
-const ModalBtnBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-
-  text-align: center;
-  height: 50px;
-  border-bottom: solid 1px #cfd9de;
-`;
-
-const CloseBtn = styled.button`
-  background: none;
-  border: none;
-  padding-left: 1rem;
-  margin-top: auto;
-  margin-bottom: auto;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const ModalTitle = styled.div`
-  font-size: 1rem;
-  margin-left: 1rem;
-  margin-top: auto;
-  margin-bottom: auto;
-  font-weight: 700;
-`;
-
-const SaveBtn = styled.button`
-  margin-left: auto;
-  margin-right: 1rem;
-  margin-top: auto;
-  margin-bottom: auto;
-  background: black;
-  height: 25px;
-  border: none;
-  border-radius: 1rem;
-  color: white;
-  width: 4rem;
-
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const Dim = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-`;
-
-const Input = styled.input`
-  width: 80%;
-`;
+import {
+  CloseBtn,
+  Dim,
+  EditBtn,
+  FollowBox,
+  Input,
+  JoinTime,
+  Modal,
+  ModalBtnBox,
+  ModalTitle,
+  Msg,
+  NickName,
+  ProfileBackground,
+  ProfileBox,
+  ProfileDiv,
+  ProfileImg,
+  ProfileImgBtn,
+  ProfileInfo,
+  SaveBtn
+} from "./style";
 
 const Profile: React.FC = () => {
   const userInfo = useContext(AuthContext);

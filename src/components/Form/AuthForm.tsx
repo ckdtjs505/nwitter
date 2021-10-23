@@ -1,39 +1,8 @@
+import React, { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "@firebase/auth";
 import { loginException } from "components/Error";
 import { firebaseAuth } from "firebase";
-import React, { useState } from "react";
-import styled from "styled-components";
-
-const LoginForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  font-size: 1.2rem;
-  line-height: 2rem;
-  font-weight: 700;
-`;
-
-const Input = styled.input`
-  width: 80%;
-  margin-bottom: 1rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  border: none;
-  border-bottom: rgb(239, 243, 244) 1px solid;
-  padding-left: 0.8rem;
-  font-size: 1.2rem;
-  prefix: 1rem;
-`;
-
-export const AuthButton = styled.button`
-  width: 80%;
-  height: 2rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  font-weight: 700;
-  background-color: white;
-  border-radius: 0.5rem;
-  border: solid 1px black;
-`;
+import { AuthButton, AuthInput, LoginForm } from "./style";
 
 const AuthForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -79,23 +48,24 @@ const AuthForm: React.FC = () => {
   return (
     <>
       <LoginForm onSubmit={hanldeSubmit}>
-        <Input
+        <AuthInput
           value={email}
           name="elEmail"
           type="email"
           onChange={handleInput}
           placeholder={"아이디"}
           required
-        ></Input>
+        ></AuthInput>
 
-        <Input
+        <AuthInput
           value={password}
           name="elPassword"
           type="password"
           onChange={handleInput}
           placeholder={"비밀번호"}
           required
-        ></Input>
+        ></AuthInput>
+
         <AuthButton name="login" type="submit">
           {createNewAccount ? "아이디 생성하기" : "로그인"}
         </AuthButton>
