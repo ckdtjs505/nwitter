@@ -5,7 +5,7 @@ import NweetsFrom from "components/Form/NweetsForm";
 import { firebaseAuth, fireCollection } from "firebase";
 import { LoadingNweet } from "components/loading/index";
 import { NweetsType } from "models/nweetType";
-import { Main, TitleBox, Title } from "./style";
+import { LayoutContents } from "components/Layout";
 
 const Home: React.FC = () => {
   const [nweets, setNweets] = useState<NweetsType[]>([]);
@@ -29,27 +29,22 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <Main>
-      <TitleBox>
-        <Title> Home </Title>
-      </TitleBox>
-      <div>
-        <NweetsFrom />
-        {nweets?.length === 0 ? (
-          <LoadingNweet />
-        ) : (
-          nweets
-            .sort((a, b) => b.createdAd - a.createdAd)
-            .map(ele => (
-              <Nweets
-                key={ele.id}
-                info={ele}
-                isOwner={ele.userId === firebaseAuth.currentUser?.uid}
-              />
-            ))
-        )}
-      </div>
-    </Main>
+    <LayoutContents titleName="Home">
+      <NweetsFrom />
+      {nweets?.length === 0 ? (
+        <LoadingNweet />
+      ) : (
+        nweets
+          .sort((a, b) => b.createdAd - a.createdAd)
+          .map(ele => (
+            <Nweets
+              key={ele.id}
+              info={ele}
+              isOwner={ele.userId === firebaseAuth.currentUser?.uid}
+            />
+          ))
+      )}
+    </LayoutContents>
   );
 };
 

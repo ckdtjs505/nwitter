@@ -1,4 +1,3 @@
-import { FiArrowLeft } from "react-icons/fi";
 import styled from "styled-components";
 
 export const TitleBox = styled.div`
@@ -14,16 +13,6 @@ export const ArrowLeftbtn = styled.button`
   border: none;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-`;
-
-export const ArrowIcon = styled(FiArrowLeft)`
-  border-radius: 2rem;
-  padding: 0.5rem;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #f3f4f6;
-  }
 `;
 
 export const Title = styled.div`

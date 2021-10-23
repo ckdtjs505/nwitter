@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { updateProfile } from "@firebase/auth";
-import { Main, Title, TitleBox } from "../home/style";
 import Nweets from "components/Nweet/Nweets";
 import { AuthContext } from "context/context";
 import { GrFormClose } from "react-icons/gr";
@@ -27,6 +26,7 @@ import {
   ProfileInfo,
   SaveBtn
 } from "./style";
+import { LayoutContents } from "components/Layout";
 
 const Profile: React.FC = () => {
   const userInfo = useContext(AuthContext);
@@ -82,11 +82,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <Main>
-      <TitleBox>
-        <Title> Profile </Title>
-      </TitleBox>
-
+    <LayoutContents titleName={"Profile"}>
       <ProfileBox>
         <ProfileBackground> </ProfileBackground>
 
@@ -125,9 +121,6 @@ const Profile: React.FC = () => {
         <div>contents</div>
       </div> */}
 
-      <TitleBox>
-        <Title> My Nweets </Title>
-      </TitleBox>
       <div>
         {userNweets.length === 0 ? (
           <Msg>
@@ -181,7 +174,7 @@ const Profile: React.FC = () => {
       ) : (
         ""
       )}
-    </Main>
+    </LayoutContents>
   );
 };
 

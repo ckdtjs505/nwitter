@@ -2,35 +2,30 @@ import { doc, getDoc, onSnapshot } from "@firebase/firestore";
 import { LoadingNweet } from "components/loading/index";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router";
-import { Main, TitleBox } from "../home/style";
+import { useParams } from "react-router";
 import defaultImg from "assets/default.png";
 import NweetsFrom from "components/Form/NweetsForm";
 import NweetsBtns from "components/Button/NweetBtns";
 import Nweets, { NweetImg } from "components/Nweet/Nweets";
 import { NweetsType } from "models/nweetType";
 import {
-  ArrowIcon,
-  ArrowLeftbtn,
+  // ArrowIcon,
+  // ArrowLeftbtn,
   Content,
   Img,
   ImgBox,
   NickName,
   Text,
   Time,
-  Title,
   UserBox,
   UserValue
 } from "./style";
+import { LayoutContents } from "components/Layout";
 
 const Nweet = () => {
   const { userId } = useParams<{ userId?: string }>();
   const [nweet, setNweet] = useState<NweetsType[]>();
   const [subNweet, setSubNweet] = useState<any>([]);
-  const history = useHistory();
-  const handleArrowLeftbtnClick = () => {
-    history.goBack();
-  };
 
   useEffect(() => {
     onSnapshot(fireCollection, snapShot => {
@@ -61,13 +56,7 @@ const Nweet = () => {
   }, []);
 
   return (
-    <Main>
-      <TitleBox>
-        <ArrowLeftbtn onClick={handleArrowLeftbtnClick}>
-          <ArrowIcon size={15} />
-        </ArrowLeftbtn>
-        <Title> Nweet </Title>
-      </TitleBox>
+    <LayoutContents titleName={"Nweet"}>
       <Content>
         {nweet?.length === 1 ? (
           <article>
@@ -92,6 +81,7 @@ const Nweet = () => {
           <LoadingNweet />
         )}
       </Content>
+
       <div>
         <NweetsFrom relayId={nweet?.[0].id} relay={nweet?.[0].relay} />
         {subNweet.length === 0
@@ -107,7 +97,7 @@ const Nweet = () => {
                 />
               ))}
       </div>
-    </Main>
+    </LayoutContents>
   );
 };
 

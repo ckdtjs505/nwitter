@@ -1,3 +1,4 @@
+import { FiArrowLeft } from "react-icons/fi";
 import styled from "styled-components";
 
 export const Main = styled.div`
@@ -14,18 +15,26 @@ export const Main = styled.div`
 `;
 
 export const TitleBox = styled.div`
+  display: flex;
   height: 53px;
   width: 100%;
   border-bottom: rgb(239, 243, 244) 1px solid;
 `;
 
+export const ArrowIcon = styled(FiArrowLeft)`
+  border-radius: 2rem;
+  padding: 0.5rem;
+  margin: auto 0.5rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #f3f4f6;
+  }
+`;
+
 export const Title = styled.div`
   font-size: 20px;
   font-weight: 700;
-  line-height: 24px;
-  text-decoration: none solid rgb(15, 20, 25);
-  white-space: nowrap;
-  margin: auto;
-  padding: 16px 16px 0 16px;
-  padding-bottom: 16px;
+  margin: auto 0;
+  padding-left: 1rem;
 `;
