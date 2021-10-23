@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { updateProfile } from "@firebase/auth";
-import { Main, nweetsType, Title, TitleBox } from "./Home";
-import Nweets from "components/Nweets";
+import { Main, Title, TitleBox } from "./Home";
+import Nweets from "components/Nweet/Nweets";
 import styled from "styled-components";
-import { AuthContext } from "context";
+import { AuthContext } from "context/context";
 import { GrFormClose } from "react-icons/gr";
+import { NweetsType } from "models/nweetType";
 
 const ProfileDiv = styled.div`
   display: flex;
@@ -141,14 +142,14 @@ const Input = styled.input`
 
 const Profile: React.FC = () => {
   const userInfo = useContext(AuthContext);
-  const [userNweets, setUserNweets] = useState<nweetsType[]>([]);
+  const [userNweets, setUserNweets] = useState<NweetsType[]>([]);
   const [newdisplayName, setNewDisplayName] = useState(firebaseAuth.currentUser?.displayName);
   const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     // 자신이 올린 Nweets 모아보기
     onSnapshot(fireCollection, snapShot => {
-      const nweets: nweetsType[] = snapShot.docs
+      const nweets: NweetsType[] = snapShot.docs
         .filter(ele => ele.data().userId === firebaseAuth.currentUser?.uid)
         .map(ele => {
           return {

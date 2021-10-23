@@ -3,13 +3,14 @@ import LoadingFile from "components/Loading/LoadingFile";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
-import { Main, nweetsType } from "./Home";
+import { Main } from "./Home";
 import { FiArrowLeft } from "react-icons/fi";
 import styled from "styled-components";
 import defaultImg from "assets/default.png";
 import NweetsFrom from "components/Form/NweetsForm";
 import NweetsBtns from "components/Button/NweetBtns";
-import Nweets, { NweetImg } from "components/Nweets";
+import Nweets, { NweetImg } from "components/Nweet/Nweets";
+import { NweetsType } from "models/nweetType";
 
 const TitleBox = styled.div`
   display: flex;
@@ -88,7 +89,7 @@ const Time = styled.span`
 
 const Nweet = () => {
   const { userId } = useParams<{ userId?: string }>();
-  const [nweet, setNweet] = useState<nweetsType[]>();
+  const [nweet, setNweet] = useState<NweetsType[]>();
   const [subNweet, setSubNweet] = useState<any>([]);
   const history = useHistory();
   const handleArrowLeftbtnClick = () => {

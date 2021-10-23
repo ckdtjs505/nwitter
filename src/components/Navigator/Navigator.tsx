@@ -1,12 +1,12 @@
 import { signOut } from "@firebase/auth";
-import { AuthContext } from "context";
+import { AuthContext } from "context/context";
 import { firebaseAuth } from "firebase";
 import { useContext, useEffect, useState } from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { IoIosMore } from "react-icons/io";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import defaultImg from "../assets/default.png";
+import defaultImg from "assets/default.png";
 import NavList from "./NavList";
 
 const Container = styled.nav`

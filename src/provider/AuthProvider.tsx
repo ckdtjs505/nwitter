@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { firebaseAuth } from "firebase";
-import { AuthContext } from "context";
+import { AuthContext } from "context/context";
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [init, setInit] = useState(false);

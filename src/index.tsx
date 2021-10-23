@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Loading from "./components/Loading/Loading";
 import Routes from "Router";
 import { AuthProvider } from "provider/AuthProvider";
-import { AuthContext } from "context";
+import { AuthContext } from "context/context";
 import GlobalStyle from "./reset.css.js";
 
 const App = () => {

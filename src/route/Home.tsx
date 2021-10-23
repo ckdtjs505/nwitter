@@ -1,24 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { onSnapshot } from "@firebase/firestore";
-import Nweets from "components/Nweets";
+import Nweets from "components/Nweet/Nweets";
 import NweetsFrom from "components/Form/NweetsForm";
 import { firebaseAuth, fireCollection } from "firebase";
 import styled from "styled-components";
 import LoadingFile from "components/Loading/LoadingFile";
-
-export interface nweetsType {
-  id: string;
-  text?: string;
-  userId?: string;
-  userNickName?: string;
-  userPhotoURL?: string;
-  createdAd: number;
-  fileUrl?: string;
-  like: string[];
-  relay: string[];
-  relayList?: nweetsType[];
-  parent: string;
-}
+import { NweetsType } from "models/nweetType";
 
 export const Main = styled.div`
   display: flex;
@@ -51,13 +38,13 @@ export const Title = styled.div`
 `;
 
 const Home: React.FC = () => {
-  const [nweets, setNweets] = useState<nweetsType[]>([]);
+  const [nweets, setNweets] = useState<NweetsType[]>([]);
 
   useEffect(() => {
     // use Effect 안에서 async를 사용하지못함..
     // 랜더링 이슈로 async를 사용하는 것이 좋은거 같지 않음.
     onSnapshot(fireCollection, snapShot => {
-      const nweetsInfo: nweetsType[] = snapShot.docs.map(ele => {
+      const nweetsInfo: NweetsType[] = snapShot.docs.map(ele => {
         return {
           id: ele.id,
           createdAd: ele.data().createdAd,

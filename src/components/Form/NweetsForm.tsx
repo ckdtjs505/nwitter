@@ -7,7 +7,7 @@ import { FiImage } from "react-icons/fi";
 import React, { useState } from "react";
 import { addDoc, doc, updateDoc } from "@firebase/firestore";
 import styled from "styled-components";
-import { DefaultButton, NweetImg } from "../Nweets";
+import { DefaultButton, NweetImg } from "../Nweet/Nweets";
 
 const Form = styled.form`
   display: flex;

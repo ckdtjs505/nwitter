@@ -2,9 +2,9 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Auth from "route/Auth";
 import Home from "route/Home";
 import Profile from "route/Profile";
-import Navigator from "components/Navigator";
+import Navigator from "components/Navigator/Navigator";
 import { useContext } from "react";
-import { AuthContext } from "context";
+import { AuthContext } from "context/context";
 import Nweet from "route/Nweet";
 
 const Routes = () => {
