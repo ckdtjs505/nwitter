@@ -6,7 +6,7 @@ import defaultImg from "assets/default.png";
 import { FiImage } from "react-icons/fi";
 import React, { useState } from "react";
 import { addDoc, doc, updateDoc } from "@firebase/firestore";
-import { DefaultButton, NweetImg } from "../Nweet/Nweets";
+import { DefaultButton, NweetImg } from "../nweet/Nweets";
 import { Content, FileInput, Img, NweetBtn, NweetForm, NweetsInput, UploadBox } from "./style";
 
 interface Props {

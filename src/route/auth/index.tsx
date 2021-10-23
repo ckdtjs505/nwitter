@@ -3,7 +3,7 @@ import { signInWithPopup } from "@firebase/auth";
 import { firebaseAuth, googleLoginProvider } from "firebase";
 import { FcCloseUpMode, FcGoogle } from "react-icons/fc";
 import { AuthBox, AuthFormDiv, AuthLayout, Img, Subtitle, Title } from "./style";
-import { AuthButton } from "components/Form/style";
+import { AuthButton } from "components/form/style";
 
 const Auth: React.FC = () => {
   // 소셜 로그인 버튼 클릭시

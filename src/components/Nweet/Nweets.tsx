@@ -6,7 +6,7 @@ import styled from "styled-components";
 import defaultImg from "assets/default.png";
 import { MdDelete, MdOutlineEdit } from "react-icons/md";
 import { useHistory } from "react-router";
-import NweetBtn from "components/Button/NweetBtns";
+import NweetBtn from "components/button/NweetBtns";
 
 const NweetData = styled.div`
   display: flex;

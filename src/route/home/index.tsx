@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { onSnapshot } from "@firebase/firestore";
-import Nweets from "components/Nweet/Nweets";
-import NweetsFrom from "components/Form/NweetsForm";
+import Nweets from "components/nweet/Nweets";
+import NweetsFrom from "components/form/NweetsForm";
 import { firebaseAuth, fireCollection } from "firebase";
 import { LoadingNweet } from "components/loading/index";
 import { NweetsType } from "models/nweetType";
-import { LayoutContents } from "components/Layout";
+import { LayoutContents } from "components/layout";
 
 const Home: React.FC = () => {
   const [nweets, setNweets] = useState<NweetsType[]>([]);

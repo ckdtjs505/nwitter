@@ -1,4 +1,4 @@
-import AuthForm from "components/Form/AuthForm";
+import AuthForm from "components/form/AuthForm";
 import styled from "styled-components";
 
 export const AuthFormDiv = styled(AuthForm)`

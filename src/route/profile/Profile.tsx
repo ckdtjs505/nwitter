@@ -2,36 +2,27 @@ import React, { useContext, useEffect, useState } from "react";
 import { doc, getDocs, onSnapshot, query, updateDoc, where } from "@firebase/firestore";
 import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { updateProfile } from "@firebase/auth";
-import Nweets from "components/Nweet/Nweets";
+import Nweets from "components/nweet/Nweets";
 import { AuthContext } from "context/context";
-import { GrFormClose } from "react-icons/gr";
 import { NweetsType } from "models/nweetType";
 import {
-  CloseBtn,
-  Dim,
   EditBtn,
   FollowBox,
-  Input,
   JoinTime,
-  Modal,
-  ModalBtnBox,
-  ModalTitle,
   Msg,
   NickName,
   ProfileBackground,
   ProfileBox,
-  ProfileDiv,
   ProfileImg,
   ProfileImgBtn,
-  ProfileInfo,
-  SaveBtn
+  ProfileInfo
 } from "./style";
-import { LayoutContents } from "components/Layout";
+import { LayoutContents } from "components/layout";
+import { ProfileModal } from "components/modal";
 
 const Profile: React.FC = () => {
   const userInfo = useContext(AuthContext);
   const [userNweets, setUserNweets] = useState<NweetsType[]>([]);
-  const [newdisplayName, setNewDisplayName] = useState(firebaseAuth.currentUser?.displayName);
   const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
@@ -54,13 +45,11 @@ const Profile: React.FC = () => {
     });
   }, []);
 
-  const handleNickSumbit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-
-    if (newdisplayName === firebaseAuth.currentUser?.displayName) return;
+  const updateUserProfile = async (newDisplayName: string) => {
+    if (newDisplayName === firebaseAuth.currentUser?.displayName) return;
     if (firebaseAuth.currentUser) {
-      await updateProfile(firebaseAuth.currentUser, { displayName: newdisplayName });
-      await userInfo?.updateUser(newdisplayName);
+      await updateProfile(firebaseAuth.currentUser, { displayName: newDisplayName });
+      await userInfo?.updateUser(newDisplayName);
     }
 
     // 닉네임이 업데이트 되면 리스트 데이터의 닉네임도 다 같이 변경되어야함
@@ -69,16 +58,9 @@ const Profile: React.FC = () => {
     const querySnapshot = await getDocs(_query);
     querySnapshot.forEach(document => {
       updateDoc(doc(firestore, `nweets/${document.id}`), {
-        userNickName: newdisplayName
+        userNickName: newDisplayName
       });
     });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value }
-    } = e;
-    setNewDisplayName(value);
   };
 
   return (
@@ -142,35 +124,7 @@ const Profile: React.FC = () => {
       </div>
 
       {isEditMode ? (
-        <>
-          <Dim></Dim>
-          <Modal onSubmit={handleNickSumbit}>
-            <div>
-              <ModalBtnBox>
-                <CloseBtn
-                  onClick={() => {
-                    setIsEditMode(!isEditMode);
-                  }}
-                >
-                  <GrFormClose size={"20px"} />
-                </CloseBtn>
-                <ModalTitle> Edit Profile </ModalTitle>
-                <SaveBtn type={"submit"}> Save </SaveBtn>
-              </ModalBtnBox>
-
-              <div>
-                <ProfileDiv>
-                  <label>name</label>
-                  <Input
-                    placeholder="닉네임을 입력"
-                    value={newdisplayName ? newdisplayName : ""}
-                    onChange={handleChange}
-                  ></Input>
-                </ProfileDiv>
-              </div>
-            </div>
-          </Modal>
-        </>
+        <ProfileModal setIsEditMode={setIsEditMode} updateUserProfile={updateUserProfile} />
       ) : (
         ""
       )}

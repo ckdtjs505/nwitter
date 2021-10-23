@@ -4,23 +4,12 @@ import { firebaseAuth, fireCollection, firestore } from "firebase";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import defaultImg from "assets/default.png";
-import NweetsFrom from "components/Form/NweetsForm";
-import NweetsBtns from "components/Button/NweetBtns";
-import Nweets, { NweetImg } from "components/Nweet/Nweets";
+import NweetsFrom from "components/form/NweetsForm";
+import NweetsBtns from "components/button/NweetBtns";
+import Nweets, { NweetImg } from "components/nweet/Nweets";
 import { NweetsType } from "models/nweetType";
-import {
-  // ArrowIcon,
-  // ArrowLeftbtn,
-  Content,
-  Img,
-  ImgBox,
-  NickName,
-  Text,
-  Time,
-  UserBox,
-  UserValue
-} from "./style";
-import { LayoutContents } from "components/Layout";
+import { Content, Img, ImgBox, NickName, Text, Time, UserBox, UserValue } from "./style";
+import { LayoutContents } from "components/layout";
 
 const Nweet = () => {
   const { userId } = useParams<{ userId?: string }>();
