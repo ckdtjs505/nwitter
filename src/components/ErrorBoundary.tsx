@@ -1,29 +1,30 @@
-import React from "react";
+import React, { ErrorInfo, ReactNode } from "react";
 
 interface State {
   hasError: boolean;
 }
 
-interface Props {}
+interface Props {
+  children: ReactNode;
+}
 
 class ErrorBoundary extends React.Component<Props, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = { hasError: false };
-  }
+  public state: State = {
+    hasError: false
+  };
 
-  static getDerivedStateFromError(error: any) {
+  public static getDerivedStateFromError(_: Error): State {
     // 다음 렌더링에서 폴백 UI가 보이도록 상태를 업데이트 합니다.
-    console.log(error);
+    console.log(_);
     return { hasError: true };
   }
 
-  componentDidCatch(error: any, errorInfo: any) {
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // 에러 리포팅 서비스에 에러를 기록할 수도 있습니다.
     console.log(error, errorInfo);
   }
 
-  render() {
+  public render() {
     if (this.state.hasError) {
       // 폴백 UI를 커스텀하여 렌더링할 수 있습니다.
       return <h1>Something went wrong.</h1>;
